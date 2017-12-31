@@ -5,11 +5,34 @@
 	<artifactId>codes-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demos</name>
-	
-	
+
+
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<junit.version>4.12</junit.version>
+		<jedis.version>2.9.0</jedis.version>
+		<httpclient.version>4.5.3</httpclient.version>
 		<spring.version></spring.version>
 	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
+		</dependency>
+	</dependencies>
 
 
 
