@@ -21,10 +21,14 @@ public class Host {
 			@Override
 			public void run() {
 				// 在新开的线程中callable中的逻辑就是普通的照着单线程的方式执行的
-				RealData realdata = new RealData(count);
 				
-				// 回填
-				future.setRealData(realdata);
+				try{
+					RealData realdata = new RealData(count);
+					// 回填
+					future.setRealData(realdata);
+				}catch(Exception e){
+					future.setException(e);
+				}
 			}
 		}).start();
 		

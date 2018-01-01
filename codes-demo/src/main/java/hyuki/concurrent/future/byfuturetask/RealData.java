@@ -23,6 +23,9 @@ public class RealData implements Data {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
+		// 模拟异常
+		//String str = new String[]{}[8];
 	}
 	
 
