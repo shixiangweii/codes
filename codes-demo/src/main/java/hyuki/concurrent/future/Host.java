@@ -20,6 +20,7 @@ public class Host {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+				// 在新开的线程中callable中的逻辑就是普通的照着单线程的方式执行的
 				RealData realdata = new RealData(count);
 				
 				// 回填

@@ -8,6 +8,9 @@ public class Main {
 
 	public static void main(String[] args) {
 
+		// 也体现了OOP的优点，虽然底层用FutureTask重写了，但此处并不受影响
+		// 不用改动
+		
 		Host host = new Host();
 
 		Data data1 = host.request(1);

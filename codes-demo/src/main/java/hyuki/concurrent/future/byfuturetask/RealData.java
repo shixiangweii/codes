@@ -1,5 +1,11 @@
 package hyuki.concurrent.future.byfuturetask;
 
+/**
+ * 真实的数据，
+ * “烤好的蛋糕”
+ * @author SXW
+ *
+ */
 public class RealData implements Data {
 	
 	private final String content;

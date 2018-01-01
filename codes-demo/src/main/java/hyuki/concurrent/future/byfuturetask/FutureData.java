@@ -1,56 +1,44 @@
 package hyuki.concurrent.future.byfuturetask;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+
 /**
  * “提货单”，“提货的票据”
  * @author SXW
  * 
- * 关键就是这个“提货单”的
- * 1、回填真实数据
- * 2、获取真实数据怎么写
- * 这两个接口，就是线程同步的逻辑了
+ * 使用java.concurrent.FutureTask
+ * 来作为模式中的"Future"角色
  */
-public class FutureData implements Data {
-	
-	// XXX:技巧
-	private boolean ready = false;// true:真正的“蛋糕”已经烤好了
+public class FutureData extends FutureTask<RealData> implements Data {// *继承
 
-	// 真正的业务逻辑数据
-	private RealData realdata = null;
-	
 	/**
-	 * 使用对象锁，监视器模式保护成员变量
+	 * 构造方法
+	 * 使用Callable，把具体的执行逻辑和返回值再做一层封装
+	 * @param callable
 	 */
+	public FutureData(Callable<RealData> callable) {// *重要
+		super(callable);
+	}
+
 	@Override
-	public synchronized String getContent() {// *重要
-		// 如果没有真实数据没有准备好，阻塞
-		while(!ready){
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+	public String getContent() {// *重要
+		String string = null;
+		
+		try {
+			
+			// 获取结果
+			RealData realData = super.get();
+			string = realData.getContent();
+			
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
 		}
 		
-		return realdata.getContent();
+		return string;
 	}
-	
-	/**
-	 * 设置真实数据的对外方法
-	 * @param realdata
-	 */
-	public synchronized void setRealData(RealData realdata){// *重要
 		
-		// XXX:技巧
-		// 保证只被设置一次
-		if (ready) {
-			return;
-		}
-		
-		this.realdata=realdata;
-		this.ready=true;
-		
-		// XXX:自己又忘了notify了！！
-		notifyAll();
-	}
-	
 }
