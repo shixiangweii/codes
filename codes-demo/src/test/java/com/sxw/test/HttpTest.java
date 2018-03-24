@@ -1,8 +1,11 @@
 package com.sxw.test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.OutputStreamWriter;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,11 +78,70 @@ public class HttpTest {
 			ZhiHuHttpClientUtil.downloadFile(img_src,"./imgs/", System.currentTimeMillis()+""+suffix, true);
 		});
 		
-		
-		
-		
-		
 	}
+	
+	
+	@Test
+	public void testGetImgsByList() throws Exception {
+		final String listUrl = "http://www.meizitu.com/a/more_PAGENO.html";
+		int pages = 1;
+		Map<String, String> mark = new HashMap<>();
+		final Map<String, Object> map = new HashMap<>();
+		for (int i = 1; i <= pages; i++) {
+			String targetListUrl = listUrl.replace("PAGENO", i + "");
+			byte[] sources = ZhiHuHttpClientUtil.getWebPageBytes(targetListUrl);
+			String listPageHtml = new String(sources, "gbk");
+			Document doc = Jsoup.parse(listPageHtml);
+			Elements detailLinks = doc.select("ul.wp-list a");
+			int count = 0;
+			for (Element item : detailLinks) {
+
+				String detail_href = item.attr("href");
+
+				if (mark.containsKey(detail_href)) {
+					continue;
+				}
+
+				count++;
+
+				map.put("count", count);
+				map.put("page", i);
+
+				byte[] sources_detail_page = ZhiHuHttpClientUtil.getWebPageBytes(detail_href);
+				String detailPageHtml = new String(sources_detail_page, "gbk");
+				Document docDetail = Jsoup.parse(detailPageHtml);
+				Elements imgs = docDetail.select("img[src*=mm.chinasareview.com]");
+				imgs.stream().forEach((ele) -> {
+					String img_src = ele.attr("src");
+					
+					if (!mark.containsKey(img_src)) {
+						System.out.println(img_src);
+						int lastIndexOf = img_src.lastIndexOf(".");
+						String suffix = img_src.substring(lastIndexOf);
+						String saveFileName = "page_" + map.get("page") + "_item_" + map.get("count")
+								+ System.currentTimeMillis() + "" + suffix;
+						
+						String pathname = "./imgs_" + "page_" + map.get("page") + "_item_" + map.get("count") + "/";
+						File folder = new File(
+								pathname);
+						
+						if(!folder.exists()){
+							folder.mkdirs();
+						}
+						
+						ZhiHuHttpClientUtil.downloadFile(img_src, pathname, saveFileName, true);
+						mark.put(img_src, img_src);
+					}
+					
+					
+				});
+
+				mark.put(detail_href, detail_href);
+				System.out.println("END PAGE:" + i + ",item:" + count);
+			}
+		}
+	}
+	
 	
     @SuppressWarnings("unused")
 	private static String getDefaultCharSet() {  
