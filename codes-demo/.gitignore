@@ -4,3 +4,5 @@
 /.settings/
 .idea/
 codes-demo.iml
+/imgs/
+*.jpg

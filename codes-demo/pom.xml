@@ -12,6 +12,8 @@
 		<junit.version>4.12</junit.version>
 		<jedis.version>2.9.0</jedis.version>
 		<httpclient.version>4.5.3</httpclient.version>
+		<jsoup.version>1.11.2</jsoup.version>
+		
 		<spring.version></spring.version>
 	</properties>
 
@@ -32,6 +34,18 @@
 			<artifactId>jedis</artifactId>
 			<version>${jedis.version}</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.jsoup</groupId>
+		    <artifactId>jsoup</artifactId>
+		    <version>${jsoup.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.7</version>
+		</dependency>
+		
+		
 	</dependencies>
 
 
