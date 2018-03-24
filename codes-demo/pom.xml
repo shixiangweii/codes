@@ -14,7 +14,7 @@
 		<httpclient.version>4.5.3</httpclient.version>
 		<jsoup.version>1.11.2</jsoup.version>
 		
-		<spring.version></spring.version>
+		<commons-lang3></commons-lang3>
 	</properties>
 
 	<dependencies>
