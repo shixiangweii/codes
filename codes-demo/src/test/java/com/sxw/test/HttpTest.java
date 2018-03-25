@@ -6,6 +6,8 @@ import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -89,8 +91,10 @@ public class HttpTest {
 		final Map<String, Object> map = new HashMap<>();
 		for (int i = 2; i <= pages; i++) {
 			String targetListUrl = listUrl.replace("PAGENO", i + "");
+			
 			byte[] sources = ZhiHuHttpClientUtil.getWebPageBytes(targetListUrl);
 			String listPageHtml = new String(sources, "gbk");
+			
 			Document doc = Jsoup.parse(listPageHtml);
 			Elements detailLinks = doc.select("ul.wp-list a");
 			int count = 0;
@@ -140,6 +144,62 @@ public class HttpTest {
 				System.out.println("END PAGE:" + i + ",item:" + count);
 			}
 		}
+	}
+	
+	@Test
+	public void testBlockQueue() {
+		final BlockingQueue<Integer> queue = new ArrayBlockingQueue<Integer>(3);
+		
+		for (int i = 0; i < 2; i++) {
+			new Thread() { // 开启两个线程不停的往缓冲区存数据
+				@Override
+				public void run() {
+					while (true) {
+						try {
+							Thread.sleep((long) (Math.random() * 1000));
+							System.out.println(Thread.currentThread().getName() + "准备放数据"
+									+ (queue.size() == 3 ? "..队列已满，正在等待" : "..."));
+							queue.put(1);
+							System.out.println(
+									Thread.currentThread().getName() + "存入数据，" + "队列目前有" + queue.size() + "个数据");
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+
+			}.start();
+		}
+		
+		 new Thread() { //开启一个线程不停的从缓冲区取数据
+
+	            @Override
+	            public void run() {
+	                while(true) {
+	                    try {
+	                        Thread.sleep(1000);
+	                        System.out.println(Thread.currentThread().getName() + "准备取数据"
+	                                + (queue.size() == 0?"..队列已空，正在等待":"..."));
+	                        queue.take();
+	                        System.out.println(Thread.currentThread().getName() + "取出数据，" 
+	                                + "队列目前有" + queue.size() + "个数据");
+	                    } catch (InterruptedException e) {
+	                        // TODO Auto-generated catch block
+	                        e.printStackTrace();
+	                    } 
+	                }
+	            }
+	        }.start();
+	        
+	        
+	        // junit测试跑完会结束所有线程，因此在test主线程中阻塞查看以上代码执行效果
+	        try {
+				Thread.sleep(10*60*1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	
