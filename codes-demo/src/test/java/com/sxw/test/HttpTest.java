@@ -84,10 +84,10 @@ public class HttpTest {
 	@Test
 	public void testGetImgsByList() throws Exception {
 		final String listUrl = "http://www.meizitu.com/a/more_PAGENO.html";
-		int pages = 1;
+		int pages = 3;
 		Map<String, String> mark = new HashMap<>();
 		final Map<String, Object> map = new HashMap<>();
-		for (int i = 1; i <= pages; i++) {
+		for (int i = 2; i <= pages; i++) {
 			String targetListUrl = listUrl.replace("PAGENO", i + "");
 			byte[] sources = ZhiHuHttpClientUtil.getWebPageBytes(targetListUrl);
 			String listPageHtml = new String(sources, "gbk");
