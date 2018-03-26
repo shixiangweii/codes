@@ -12,7 +12,11 @@
 		<junit.version>4.12</junit.version>
 		<jedis.version>2.9.0</jedis.version>
 		<httpclient.version>4.5.3</httpclient.version>
-		<spring.version></spring.version>
+		<jsoup.version>1.11.2</jsoup.version>
+		        <log4j2.version>2.6.2</log4j2.version>
+        <sl4j.version>1.7.21</sl4j.version>
+        <jcl-over-sl4j.version>1.7.25</jcl-over-sl4j.version>
+		<commons-lang3></commons-lang3>
 	</properties>
 
 	<dependencies>
@@ -32,6 +36,47 @@
 			<artifactId>jedis</artifactId>
 			<version>${jedis.version}</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.jsoup</groupId>
+		    <artifactId>jsoup</artifactId>
+		    <version>${jsoup.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.7</version>
+		</dependency>
+		
+	  <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-web</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${sl4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${jcl-over-sl4j.version}</version>
+            </dependency>	
 	</dependencies>
 
 

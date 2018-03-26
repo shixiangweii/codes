@@ -168,6 +168,15 @@ public class ZhiHuHttpClientUtil {
 		HttpGet request = new HttpGet(url);
 		return getWebPage(request, "utf-8");
 	}
+	public static String getWebPage(String url, String encoding) throws IOException {
+		HttpGet request = new HttpGet(url);
+		return getWebPage(request, encoding);
+	}
+	
+	public static byte[] getWebPageBytes(String url) throws IOException {
+		HttpGet request = new HttpGet(url);
+		return getWebPageBytes(request);	
+	}
 
 	/**
 	 * 
@@ -238,6 +247,19 @@ public class ZhiHuHttpClientUtil {
 		// 释放连接
 		request.releaseConnection();
 
+		return content;
+	}
+	
+	public static byte[] getWebPageBytes(HttpRequestBase request) throws IOException {
+		CloseableHttpResponse response = null;
+		
+		response = getResponse(request);
+		
+		byte[] content = EntityUtils.toByteArray(response.getEntity());
+		
+		// 释放连接
+		request.releaseConnection();
+		
 		return content;
 	}
 
