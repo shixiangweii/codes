@@ -31,7 +31,7 @@ public class Meizitu {
 			}
 		}
 		
-		// TODO: 优雅停机；任务结束自动结束所有线程；定时记录显示下载进度；httputil性能优化
+		// TODO: 优雅停机（提前手动结束进程）；任务结束自动结束所有线程；定时记录显示下载进度；httputil性能优化
 
 		int i = 1;
 		int j = 1;
