@@ -12,10 +12,14 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import hyuki.concurrent.Concurrent;
+
 public class ListPageParser implements Runnable {
-	
+
+	private static volatile boolean on = true;
+
 	private final Logger logger = LoggerFactory.getLogger(ListPageParser.class);
-	
+
 	private BlockingQueue<String> queue = null;
 	private AtomicInteger pageNums = null;
 	private int totalPages;
@@ -35,9 +39,14 @@ public class ListPageParser implements Runnable {
 		this.totalPages = total;
 	}
 
+	@Concurrent
+	public static void stop() {
+		on = false;
+	}
+
 	@Override
 	public void run() {
-		while (true) {
+		while (on && !Thread.currentThread().isInterrupted()) {
 			try {
 				int pageNo = pageNums.incrementAndGet();
 				if (pageNo > totalPages) {
