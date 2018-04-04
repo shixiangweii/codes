@@ -11,6 +11,7 @@ import java.util.concurrent.RecursiveTask;
  * Date: 2018-04-04
  * Time: 23:00
  */
+@SuppressWarnings("serial")
 public class CountTask extends RecursiveTask<Integer> {
 
     /**
