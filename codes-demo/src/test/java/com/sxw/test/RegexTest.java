@@ -1,8 +1,6 @@
 package com.sxw.test;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,57 +15,61 @@ public class RegexTest {
 
 
     /**
-     * 匹配双引号，逗号，分号的问题
-     * ()匹配组
-     * 整体的匹配
+     * 正则表达式，编译得到模式，匹配器
      *
-     * 查找字串
-     * 标记重置
+     * 字符串整体完全匹配,matches
+     *
+     * ()匹配组，[0]本身，小括号后的[1],[2]..., group()/group(0)
+     *
+     * “上一个匹配”，就是上一个pattern得到的matcher匹配器
+     *
+     * find 字串的查找
      */
     @Test
     public void testRegex() {
-        Logger logger = LoggerFactory.getLogger(RegexTest.class);
-
-        // s1 定义正则
+        // s1 定义正则表达式
         String regex = "^(1[0-9]{1})+(\\d{9}$)";
-        // s2 预编译
+        // s2 预编译得到模式
         Pattern pattern = Pattern.compile(regex);
-        // s3 match 匹配
+        // s3 匹配具体字符串，返回匹配器
         Matcher matcher = pattern.matcher("18019694171");
 
-        boolean b = false;
-        //b = matcher.find();
-        //logger.info("matcher.find()\t{}", b);
+        // 没有执行"matcher.matches"会报异常，java.lang.IllegalStateException: No match available
+        // System.out.println(matcher.start());
 
-        //b = matcher.find();
-//        logger.info("matcher.find()\t{}", b);
+        // 完全匹配，会修改匹配器中的标记变量
+        // true
+        System.out.println(matcher.matches());
+
+        // 0
         System.out.println(matcher.start());
 
-        // 整个字符串是否匹配
-        logger.info("matcher.matches()\t{}", matcher.matches());
+        // 字符串本身
+        // 18019694171
+        System.out.println(matcher.group());
 
-        System.out.println(matcher.start());
+        // 字符串本身
+        // 18019694171
+        System.out.println(matcher.group(0));
 
+        // 第一个匹配组
+        // 18
+        System.out.println(matcher.group(1));
 
-        b = matcher.find();
-        logger.info("matcher.find()\t{}", b);
+        // 第2个匹配组
+        // 019694171
+        System.out.println(matcher.group(2));
 
-        // the previous match，上个match,是指的，pattern.matcher，返回的match
-        logger.info("matcher.group()\t{}", matcher.group());
+        // 查找字串
+        // false
+        System.out.println(matcher.find());
 
-        logger.info("matcher.group(0)\t{}", matcher.group(0));
+        // 重置标记
+        matcher.reset();
 
-        logger.info("matcher.group(1)\t{}", matcher.group(1));
-
-        logger.info("matcher.group(2)\t{}", matcher.group(2));
-
-        logger.info("matcher.group()\t{}", matcher.group());
-
-
-
-        // matcher.reset();
-
-
+        // 查找
+        // true
+        System.out.println(matcher.find());
 
     }
 
