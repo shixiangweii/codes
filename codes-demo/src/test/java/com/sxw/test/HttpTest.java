@@ -64,7 +64,7 @@ public class HttpTest {
 		String string = new String(sources, "gbk");
 		
 		// 自己对编码的理解还是不对
-		String string2 = new String(string.getBytes(), "utf-8");
+		String string2 = new String(string.getBytes("gbk"), "utf-8");
 		
 		// http://mm.chinasareview.com/wp-content/uploads/2017a/08/01/limg.jpg
 		// System.out.println(string);
