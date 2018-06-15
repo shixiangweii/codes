@@ -67,6 +67,7 @@ public class ListPageParser implements Runnable {
 					String detailPageHtml = Downloader.download(detailHref, "gbk");
 					Document detailDoc = Jsoup.parse(detailPageHtml);
 					Elements imgs = detailDoc.select("img[src*=mm.chinasareview.com]");
+
 					imgs.stream().forEach((ele) -> {
 						String imgSrc = ele.attr("src");
 						if (!mark.containsKey(imgSrc)) {
