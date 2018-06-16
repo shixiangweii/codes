@@ -60,7 +60,10 @@ public class AppleFilter {
         });
 
         // lambda
-        redApples = filterApples(Collections.emptyList(), apple -> "red".equals(apple.getColor()));
+        // Lambda表达式可以作为参数传递给方法或存储在变量中
+        // 类型推断，这里"apple"自动推断为Apple
+        ApplePredicate applePredicate = apple -> "red".equals(apple.getColor());
+        redApples = filterApples(Collections.emptyList(), applePredicate);
 
         // 其实无论是lambda还是匿名类，对于之前自己的想法：颜色，重量，形状，接口就一个参数Apple apple真的够吗？
         // 自己还是想的是，在接口参数列表中定义用户筛选的数值————>自己的理解还是不对

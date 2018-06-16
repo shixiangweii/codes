@@ -1,8 +1,7 @@
 package com.sxw.code.lambda.countapple;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+
+import lombok.*;
 
 /**
  * Description:
@@ -15,6 +14,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Apple {
     private String color;
     private Integer weight;
