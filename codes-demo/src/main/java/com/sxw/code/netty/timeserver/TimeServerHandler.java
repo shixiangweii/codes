@@ -32,9 +32,11 @@ public class TimeServerHandler extends ChannelHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        // 使用StringDecoder，可以直接转String
         String body = msg.toString();
         System.out.println("Receive order : " + body);
         String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body) ? new Date().toString() : "BAD ORDER";
+        // 使用LineBasedFrameDecoder， 发送的消息要加上“\r\n”
         ByteBuf resp = Unpooled.copiedBuffer((currentTime + System.getProperty("line.separator")).getBytes());
         ctx.write(resp);
     }

@@ -18,6 +18,7 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
     private final ByteBuf firstMessage;
 
     TimeClientHandler() {
+        // // 使用LineBasedFrameDecoder， 发送的消息要加上“\r\n”
         byte[] req = ("QUERY TIME ORDER" + System.getProperty("line.separator")).getBytes();
         firstMessage = Unpooled.buffer(req.length);
         firstMessage.writeBytes(req);
@@ -47,6 +48,7 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        // 使用StringDecoder，可以直接转String
         System.out.println("Now is : " + msg);
     }
 

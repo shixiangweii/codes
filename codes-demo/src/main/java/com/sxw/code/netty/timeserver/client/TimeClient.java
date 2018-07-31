@@ -64,6 +64,7 @@ public class TimeClient {
             ChannelHandler handler = new ChannelInitializer<SocketChannel>() {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
+                    // 添加LineBasedFrameDecoder，StringDecoder，注意顺序
                     ch.pipeline().addLast(new LineBasedFrameDecoder(1024));
                     ch.pipeline().addLast(new StringDecoder());
                     ch.pipeline().addLast(new TimeClientHandler());
@@ -116,6 +117,7 @@ class ClientSend implements Runnable {
         Channel channel = channelFuture.channel();
         for (int i = 0, interval = 1; i < times; i++) {
             try {
+                // 使用LineBasedFrameDecoder， 发送的消息要加上“\r\n”
                 byte[] req = ("QUERY TIME ORDER" + System.getProperty("line.separator")).getBytes();
                 ByteBuf message = Unpooled.buffer(req.length);
                 message.writeBytes(req);
