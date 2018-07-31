@@ -8,6 +8,8 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LineBasedFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -62,13 +64,14 @@ public class TimeClient {
             ChannelHandler handler = new ChannelInitializer<SocketChannel>() {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
+                    ch.pipeline().addLast(new LineBasedFrameDecoder(1024));
+                    ch.pipeline().addLast(new StringDecoder());
                     ch.pipeline().addLast(new TimeClientHandler());
                 }
             };
             b.group(group).channel(NioSocketChannel.class)
                     .option(ChannelOption.TCP_NODELAY, true)
                     .handler(handler);
-
             // 执行连接操作，同步等待成功
             // 发起异步连接b.connect(host, port)
             // 同步等待成功.sync()
@@ -113,11 +116,11 @@ class ClientSend implements Runnable {
         Channel channel = channelFuture.channel();
         for (int i = 0, interval = 1; i < times; i++) {
             try {
-                byte[] req = "QUERY TIME ORDER".getBytes();
+                byte[] req = ("QUERY TIME ORDER" + System.getProperty("line.separator")).getBytes();
                 ByteBuf message = Unpooled.buffer(req.length);
                 message.writeBytes(req);
                 channel.writeAndFlush(message);
-                Thread.sleep(interval * 1000L);
+                Thread.sleep(interval * 100L);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

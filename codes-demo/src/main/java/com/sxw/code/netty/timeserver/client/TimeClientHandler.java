@@ -18,7 +18,7 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
     private final ByteBuf firstMessage;
 
     TimeClientHandler() {
-        byte[] req = "QUERY TIME ORDER".getBytes();
+        byte[] req = ("QUERY TIME ORDER" + System.getProperty("line.separator")).getBytes();
         firstMessage = Unpooled.buffer(req.length);
         firstMessage.writeBytes(req);
     }
@@ -34,12 +34,20 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
         ctx.writeAndFlush(firstMessage);
     }
 
+    /**
+     * 使用基础的解析方式
+     * ByteBuf buf = (ByteBuf) msg;
+     * byte[] req = new byte[buf.readableBytes()];
+     * buf.readBytes(req);
+     * System.out.println("Now is : " + new String(req, "UTF-8"));
+     *
+     * @param ctx
+     * @param msg
+     * @throws Exception
+     */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf buf = (ByteBuf) msg;
-        byte[] req = new byte[buf.readableBytes()];
-        buf.readBytes(req);
-        System.out.println("Now is : " + new String(req, "UTF-8"));
+        System.out.println("Now is : " + msg);
     }
 
 }

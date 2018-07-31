@@ -16,16 +16,26 @@ import java.util.Date;
  * @author shixiangweii
  */
 public class TimeServerHandler extends ChannelHandlerAdapter {
+
+    /**
+     * 使用基础的解析的方式
+     * <p>
+     * // 类似jdk中ByteBuffer
+     * ByteBuf buf = (ByteBuf) msg;
+     * byte[] req = new byte[buf.readableBytes()];
+     * buf.readBytes(req);
+     * String body = new String(req, "UTF-8");
+     *
+     * @param ctx
+     * @param msg
+     * @throws Exception
+     */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        // 类似jdk中ByteBuffer
-        ByteBuf buf = (ByteBuf) msg;
-        byte[] req = new byte[buf.readableBytes()];
-        buf.readBytes(req);
-        String body = new String(req, "UTF-8");
+        String body = msg.toString();
         System.out.println("Receive order : " + body);
         String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body) ? new Date().toString() : "BAD ORDER";
-        ByteBuf resp = Unpooled.copiedBuffer(currentTime.getBytes());
+        ByteBuf resp = Unpooled.copiedBuffer((currentTime + System.getProperty("line.separator")).getBytes());
         ctx.write(resp);
     }
 
