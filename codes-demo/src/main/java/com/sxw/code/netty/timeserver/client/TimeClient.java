@@ -77,9 +77,9 @@ public class TimeClient {
             ChannelFuture f = b.connect(host, port).sync();
 
             // optimize 等待初始化彻底??
-            //Thread.sleep(3000L);
+            Thread.sleep(3000L);
             // ChannelOutboundBuffer:line:151 - Failed to release a message.
-            //THREAD_POOL_EXECUTOR.execute(new ClientSend(f, 5));
+            THREAD_POOL_EXECUTOR.execute(new ClientSend(f, 5));
 
             // 等待服务端监听端口关闭
             System.out.println("Client connect OK, wait to close...");
@@ -124,10 +124,9 @@ class ClientSend implements Runnable {
         message.writeBytes(req);
 
         for (int i = 0, interval = 1; i < times; i++) {
-            channel.writeAndFlush(message);
-
             // Failed to release a message.
             try {
+                channel.writeAndFlush(message);
                 Thread.sleep(interval * 1000L);
             } catch (InterruptedException e) {
                 e.printStackTrace();
