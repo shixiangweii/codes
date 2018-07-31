@@ -19,11 +19,15 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  * @author shixiangweii
  */
 public class TimeServer {
+
+    public static final int PORT = 8888;
+
+    public static final String HOST = "127.0.0.1";
+
     /**
-     * @param port
-     * @throws Exception
+     * @throws Exception exp
      */
-    private void bind(int port) throws Exception {
+    private void bind() throws Exception {
         // 服务端NIO线程组（实际上就是Reactor线程组）
         // 接收客户端连接线程组
         EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -42,7 +46,7 @@ public class TimeServer {
             System.out.println("Server waiting port bind...");
             // 执行端口绑定，同步等待成功
             // sync()方法，同步阻塞等待绑定操作完成
-            ChannelFuture f = b.bind(port).sync();
+            ChannelFuture f = b.bind(PORT).sync();
 
 
             System.out.println("Server port bind OK, wait to close...");
@@ -67,11 +71,11 @@ public class TimeServer {
     }
 
     /**
-     * @param args
-     * @throws Exception
+     * @param args args
+     * @throws Exception exp
      */
     public static void main(String[] args) throws Exception {
-        new TimeServer().bind(8888);
+        new TimeServer().bind();
         System.out.println("Server end");
     }
 }
