@@ -18,6 +18,7 @@ import java.util.Date;
 public class TimeServerHandler extends ChannelHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        // 类似jdk中ByteBuffer
         ByteBuf buf = (ByteBuf) msg;
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
@@ -30,11 +31,13 @@ public class TimeServerHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        // 发送缓冲区中的消息全部写到SocketChannel
         ctx.flush();
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        // 关闭ctx，释放和ctx相关联的句柄等资源
         ctx.close();
     }
 }

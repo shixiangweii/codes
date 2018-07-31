@@ -51,6 +51,7 @@ public class TimeClient {
         try {
             Bootstrap b = new Bootstrap();
 
+            // 像这种泛型的接口，lambda还是不支持的
             ChannelHandler handler = new ChannelInitializer<SocketChannel>() {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
@@ -67,21 +68,22 @@ public class TimeClient {
                 }
             };*/
 
-
             b.group(group).channel(NioSocketChannel.class)
                     .option(ChannelOption.TCP_NODELAY, true)
                     .handler(handler);
 
-            // 执行端口绑定，同步等待成功
+            // 执行连接操作，同步等待成功
+            // 发起异步连接b.connect(host, port)，
+            // 同步等待成功.sync();
             System.out.println("Client waiting connect...");
             ChannelFuture f = b.connect(host, port).sync();
 
             // optimize 等待初始化彻底??
-            Thread.sleep(3000L);
+            // Thread.sleep(3000L);
             // ChannelOutboundBuffer:line:151 - Failed to release a message.
-            THREAD_POOL_EXECUTOR.execute(new ClientSend(f, 5));
+            // THREAD_POOL_EXECUTOR.execute(new ClientSend(f, 5));
 
-            // 等待服务端监听端口关闭
+            // 等待客户端链路关闭
             System.out.println("Client connect OK, wait to close...");
             // 阻塞了
             f.channel().closeFuture().sync();
@@ -106,7 +108,7 @@ public class TimeClient {
 
 class ClientSend implements Runnable {
 
-    private ChannelFuture channelFuture;
+    private final ChannelFuture channelFuture;
 
     private int times;
 
@@ -126,7 +128,9 @@ class ClientSend implements Runnable {
         for (int i = 0, interval = 1; i < times; i++) {
             // Failed to release a message.
             try {
+
                 channel.writeAndFlush(message);
+
                 Thread.sleep(interval * 1000L);
             } catch (InterruptedException e) {
                 e.printStackTrace();
