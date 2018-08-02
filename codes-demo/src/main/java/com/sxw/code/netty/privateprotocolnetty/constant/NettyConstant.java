@@ -12,7 +12,7 @@ public interface NettyConstant {
     /**
      * 服务器端口
      */
-    int PORT = 9991;
+    int PORT = 9391;
     /**
      * 远程地址
      */
