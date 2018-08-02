@@ -58,7 +58,7 @@ public class NettyClient {
                 try {
                     TimeUnit.SECONDS.sleep(5);
                     try {
-                        connect(NettyConstant.PORT, NettyConstant.REMOTEIP);
+                        connect(NettyConstant.PORT, NettyConstant.REMOTE_IP);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -70,6 +70,6 @@ public class NettyClient {
     }
 
     public static void main(String[] args) throws Exception {
-        new NettyClient().connect(NettyConstant.PORT, NettyConstant.REMOTEIP);
+        new NettyClient().connect(NettyConstant.PORT, NettyConstant.REMOTE_IP);
     }
 }

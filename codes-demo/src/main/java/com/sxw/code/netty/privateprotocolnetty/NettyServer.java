@@ -44,7 +44,7 @@ public class NettyServer {
                         ch.pipeline().addLast("HeartBeatHandler", new HeartBeatRespHandler());
                     }
                 });
-        b.bind(NettyConstant.REMOTEIP, NettyConstant.PORT).sync();
+        b.bind(NettyConstant.REMOTE_IP, NettyConstant.PORT).sync();
         System.out.println("Netty server start ok...");
     }
 

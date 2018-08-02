@@ -16,6 +16,6 @@ public interface NettyConstant {
     /**
      * 远程地址
      */
-    String REMOTEIP = "127.0.0.1";
+    String REMOTE_IP = "127.0.0.1";
 
 }
