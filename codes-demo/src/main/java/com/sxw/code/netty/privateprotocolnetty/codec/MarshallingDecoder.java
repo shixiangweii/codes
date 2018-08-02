@@ -1,6 +1,6 @@
 package com.sxw.code.netty.privateprotocolnetty.codec;
 
-import com.sxw.code.netty.privateprotocolnetty.codec.util.MarshallingCodeCFactory;
+import com.sxw.code.netty.privateprotocolnetty.codec.util.MarshallingCodecFactory;
 import io.netty.buffer.ByteBuf;
 import org.jboss.marshalling.ByteInput;
 import org.jboss.marshalling.Unmarshaller;
@@ -19,7 +19,7 @@ public class MarshallingDecoder {
     private final Unmarshaller unmarshaller;
 
     public MarshallingDecoder() throws IOException {
-        unmarshaller = MarshallingCodeCFactory.buildUnMarshalling();
+        unmarshaller = MarshallingCodecFactory.buildUnMarshalling();
     }
 
     protected Object decode(ByteBuf in) throws Exception {

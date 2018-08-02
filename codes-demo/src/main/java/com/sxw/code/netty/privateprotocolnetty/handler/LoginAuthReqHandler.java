@@ -20,15 +20,33 @@ public class LoginAuthReqHandler extends ChannelHandlerAdapter {
         ctx.fireExceptionCaught(cause);
     }
 
+    /**
+     * 激活
+     * 发起握手（登陆）请求
+     *
+     * @param ctx
+     * @throws Exception
+     */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush(buildLoginReq());
+        NettyMessage msg = buildLoginReq();
+        System.out.println("Channel active send LOGIN_REQ, type " + msg.getHeader().getType());
+        ctx.writeAndFlush(msg);
     }
 
+    /**
+     * 解析 login resp
+     *
+     * @param ctx
+     * @param msg
+     * @throws Exception
+     */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         NettyMessage message = (NettyMessage) msg;
+        System.out.print("Channel read msg : " + msg);
         if (message.getHeader() != null && message.getHeader().getType() == MessageType.LOGIN_RESP.value()) {
+            System.out.println(" , is LOGIN_RESP, body : " + message.getBody());
             byte loginResult = (byte) message.getBody();
             if (loginResult != (byte) 0) {
                 ctx.close();

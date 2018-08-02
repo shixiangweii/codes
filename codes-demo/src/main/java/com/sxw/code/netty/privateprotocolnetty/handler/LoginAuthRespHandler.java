@@ -33,10 +33,21 @@ public class LoginAuthRespHandler extends ChannelHandlerAdapter {
         ctx.fireExceptionCaught(cause);
     }
 
+    /**
+     * @param ctx
+     * @param msg
+     * @throws Exception
+     */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         NettyMessage message = (NettyMessage) msg;
+
+        System.out.println("LoginAuthRespHandler get : " + message);
+
         if (message.getHeader() != null && message.getHeader().getType() == MessageType.LOGIN_RESP.value()) {
+
+            System.out.println("Get LOGIN RESP");
+
             String nodeIndex = ctx.channel().remoteAddress().toString();
             NettyMessage loginResp;
             if (nodeCheck.containsKey(nodeIndex)) {

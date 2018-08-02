@@ -58,6 +58,9 @@ public final class NettyMessageEncoder extends MessageToMessageEncoder<NettyMess
         } else {
             sendBuf.writeInt(0);
             // 在第[4]个字节，写入请求长度
+            // [0][1] crcCode
+            // [2][3] 主版本号、次版本号
+            // [4] 消息总长度
             sendBuf.setInt(4, sendBuf.readableBytes());
         }
     }
