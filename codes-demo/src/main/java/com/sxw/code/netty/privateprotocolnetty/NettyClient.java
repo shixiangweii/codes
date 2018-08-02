@@ -38,19 +38,22 @@ public class NettyClient {
         try {
             Bootstrap b = new Bootstrap();
             b.group(group).channel(NioSocketChannel.class)
-                .option(ChannelOption.TCP_NODELAY, true)
-                .handler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    protected void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new NettyMessageDecoder(1024 * 1024, 4, 4));
-                        ch.pipeline().addLast(new NettyMessageEncoder());
-                        ch.pipeline().addLast("readTimeoutHandler", new ReadTimeoutHandler(50));
-                        ch.pipeline().addLast("LoginAuthHandler", new LoginAuthReqHandler());
-                        ch.pipeline().addLast("HeartBeatHandler", new HeartBeatReqHandler());
-                    }
-                });
+                    .option(ChannelOption.TCP_NODELAY, true)
+                    .handler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        protected void initChannel(SocketChannel ch) throws Exception {
+                            ch.pipeline().addLast(new NettyMessageDecoder(1024 * 1024, 4, 4));
+                            ch.pipeline().addLast(new NettyMessageEncoder());
+                            ch.pipeline().addLast("readTimeoutHandler", new ReadTimeoutHandler(50));
+                            ch.pipeline().addLast("LoginAuthHandler", new LoginAuthReqHandler());
+                            ch.pipeline().addLast("HeartBeatHandler", new HeartBeatReqHandler());
+                        }
+                    });
             // 发起异步连接操作，同步等待完成
-            ChannelFuture future = b.connect(new InetSocketAddress(host, port));
+            System.out.println("Client wait connect...");
+            ChannelFuture future = b.connect(new InetSocketAddress(host, port),
+                    new InetSocketAddress(NettyConstant.LOCAL_IP, NettyConstant.LOCAL_PORT));
+            System.out.println("Client connect ok wait close...");
             future.channel().closeFuture().sync();
         } finally {
             // 所有资源释放完成后，清空资源，再次发起重连操作

@@ -17,5 +17,12 @@ public interface NettyConstant {
      * 远程地址
      */
     String REMOTE_IP = "127.0.0.1";
-
+    /**
+     * 客户端端口
+     */
+    int LOCAL_PORT = 9392;
+    /**
+     * 客户端ip
+     */
+    String LOCAL_IP = "127.0.0.1";
 }
