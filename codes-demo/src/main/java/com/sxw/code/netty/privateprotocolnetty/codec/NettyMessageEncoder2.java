@@ -1,43 +1,46 @@
 package com.sxw.code.netty.privateprotocolnetty.codec;
 
+import com.sxw.code.netty.privateprotocolnetty.codec.util.MarshallingCodecFactory;
 import com.sxw.code.netty.privateprotocolnetty.protocal.NettyMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToByteEncoder;
+import io.netty.handler.codec.MessageToMessageEncoder;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Description:
  * User: shixiangweii
- * Date: 2018-08-01
- * Time: 11:15
- *
+ * Date: 2018-08-02
+ * Time: 15:16
+ * https://blog.csdn.net/iter_zc/article/details/39317311
  * @author shixiangweii
  */
-public final class NettyMessageEncoder extends MessageToByteEncoder<NettyMessage> {
+public class NettyMessageEncoder2 extends MessageToMessageEncoder<NettyMessage> {
 
-    MarshallingEncoder marshallingEncoder;
+    private NettyMarshallingEncoder marshallingEncoder;
 
-    public NettyMessageEncoder() throws IOException {
-        marshallingEncoder = new MarshallingEncoder();
+    public NettyMessageEncoder2() {
+        marshallingEncoder = MarshallingCodecFactory.buildMarshallingEncoder();
     }
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, NettyMessage msg, ByteBuf sendBuf) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, NettyMessage msg,
+                          List<Object> out) throws Exception {
         if (msg == null || msg.getHeader() == null) {
             throw new Exception("The encode message is null");
         }
-        // 构造待发送byteBuf
+
+        ByteBuf sendBuf = Unpooled.buffer();
         sendBuf.writeInt(msg.getHeader().getCrcCode());
         sendBuf.writeInt(msg.getHeader().getLength());
         sendBuf.writeLong(msg.getHeader().getSessionID());
         sendBuf.writeByte(msg.getHeader().getType());
         sendBuf.writeByte(msg.getHeader().getPriority());
         sendBuf.writeInt(msg.getHeader().getAttachment().size());
+
         String key = null;
         byte[] keyArray = null;
         Object value = null;
@@ -47,21 +50,20 @@ public final class NettyMessageEncoder extends MessageToByteEncoder<NettyMessage
             sendBuf.writeInt(keyArray.length);
             sendBuf.writeBytes(keyArray);
             value = param.getValue();
-            marshallingEncoder.encode(value, sendBuf);
+            marshallingEncoder.encode(ctx, value, sendBuf);
         }
         key = null;
         keyArray = null;
         value = null;
         if (msg.getBody() != null) {
-            marshallingEncoder.encode(msg.getBody(), sendBuf);
-        } else {
-            sendBuf.writeInt(0);
-            // 在第[4]个字节，写入请求长度
-            // [0][1] crcCode
-            // [2][3] 主版本号、次版本号
-            // [4] 消息总长度
+            marshallingEncoder.encode(ctx, msg.getBody(), sendBuf);
         }
 
-        sendBuf.setInt(4, sendBuf.readableBytes() - 8);
+        int readableBytes = sendBuf.readableBytes();
+        sendBuf.setInt(4, readableBytes);
+
+        // 把Message添加到List传递到下一个Handler
+        out.add(sendBuf);
     }
+
 }

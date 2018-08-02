@@ -44,9 +44,9 @@ public class LoginAuthRespHandler extends ChannelHandlerAdapter {
 
         System.out.println("LoginAuthRespHandler get : " + message);
 
-        if (message.getHeader() != null && message.getHeader().getType() == MessageType.LOGIN_RESP.value()) {
+        if (message.getHeader() != null && message.getHeader().getType() == MessageType.LOGIN_REQ.value()) {
 
-            System.out.println("Get LOGIN RESP");
+            System.out.println("Get LOGIN_REQ");
 
             String nodeIndex = ctx.channel().remoteAddress().toString();
             NettyMessage loginResp;

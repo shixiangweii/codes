@@ -22,6 +22,7 @@ public class HeartBeatReqHandler extends ChannelHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
         if (heartBeat != null) {
             heartBeat.cancel(true);
             heartBeat = null;
@@ -37,7 +38,7 @@ public class HeartBeatReqHandler extends ChannelHandlerAdapter {
             System.out.println("HeartBeatReqHandler get LOGIN_RESP, send heart req");
 
             heartBeat = ctx.executor().scheduleAtFixedRate(
-                    new HeartBeatTask(ctx), 0, 5000, TimeUnit.SECONDS
+                    new HeartBeatTask(ctx), 0, 5000, TimeUnit.MILLISECONDS
             );
         } else if (message.getHeader() != null && message.getHeader().getType() == MessageType.HEARTBEAT_RESP.value()) {
             System.out.println("Client receive server heart beat message : ---> " + message);
