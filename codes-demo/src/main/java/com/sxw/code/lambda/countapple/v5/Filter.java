@@ -2,9 +2,7 @@ package com.sxw.code.lambda.countapple.v5;
 
 import com.sxw.code.lambda.countapple.Apple;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Description:
@@ -15,7 +13,7 @@ import java.util.List;
  * @author shixiangweii
  */
 public class Filter {
-    public static <T> List<T> filter(List<T> list, Predicate<T> p) {
+    private static <T> List<T> filter(List<T> list, Predicate<T> p) {
         List<T> result = new ArrayList<>();
         for (T e : list) {
             if (p.test(e)) {
@@ -25,9 +23,20 @@ public class Filter {
         return result;
     }
 
+    private static <T, R> List<R> getList(List<T> list, Function<T, R> function) {
+        List<R> res = new LinkedList<>();
+        list.forEach(item -> {
+            R apply = function.apply(item);
+            res.add(apply);
+        });
+        return res;
+    }
+
+
     /**
      * 4个有用的东西：
      * 泛型，OOP，匿名类/lambda函数式编程，AOP(反射、Proxy)
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -35,5 +44,10 @@ public class Filter {
         filter(Collections.emptyList(), (Apple apple) -> "red".equals(apple.getColor()));
 
         filter(Collections.emptyList(), (Integer i) -> i % 2 == 0);
+
+        getList(Collections.emptyList(), (Apple a) -> a.getColor().trim());
+
+        System.out.println(getList(Arrays.asList(new Apple("red ", 100), new Apple("green ", 100)),
+                (Apple a) -> a.getColor().trim()));
     }
 }

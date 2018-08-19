@@ -22,7 +22,7 @@ public class OptionalUsage {
     private static String getString(String string) {
         Optional<String> str = Optional.ofNullable(string);
         str.ifPresent(System.out::println);
-        return str.orElse("else");
+        return str.orElse("else null");
     }
 
     private static String setName(String name) throws IllegalArgumentException {
