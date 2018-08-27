@@ -47,7 +47,7 @@ public class SimpleApolloConfigDemo {
     }
 
     public static void main(String[] args) throws IOException {
-
+        // 通过sys prop设置环境属性
         System.setProperty("env", "DEV");
 
         SimpleApolloConfigDemo apolloConfigDemo = new SimpleApolloConfigDemo();
