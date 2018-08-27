@@ -32,7 +32,7 @@ public class Demo1 {
                 new Dish("prawns", false, 300, Dish.Type.FISH),
                 new Dish("salmon", false, 450, Dish.Type.FISH));
 
-
+        // 数据源menu + 中间操作链sorted,filter + 终端操作collect
         List<String> lowCaloricDishesName =
                 menu.stream()
                         .filter(d -> d.getCalories() < 400)
@@ -41,6 +41,7 @@ public class Demo1 {
                         .collect(toList());
         System.out.println(lowCaloricDishesName);
 
+        // 并行流
         List<String> lowCaloricDishesName2 =
                 menu.parallelStream()
                         .filter(d -> d.getCalories() < 400)
@@ -49,9 +50,19 @@ public class Demo1 {
                         .collect(toList());
         System.out.println(lowCaloricDishesName2);
 
+        // 分组
         Map<Dish.Type, List<Dish>> dishesByType =
                 menu.stream().collect(groupingBy(Dish::getType));
         System.out.println(dishesByType);
+
+        // map-reduce
+        int count = menu.stream()
+                .map(d -> 1)
+                .reduce(0, (a, b) -> a + b);
+        System.out.println(count);
+
+        // 内置 count 方法可用来计算流中元素的个数
+        // System.out.println(menu.stream().count());
 
 
     }
