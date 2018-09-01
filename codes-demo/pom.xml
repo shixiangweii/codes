@@ -154,11 +154,19 @@
             <version>3.7.5</version>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
             <version>3.6.0</version>
+        </dependency>-->
+
+        <!-- ehcache不要混用，spring-cache现在还是只有支持到ehcache2 -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>2.10.5</version>
         </dependency>
+
 
 
     </dependencies>
@@ -175,5 +183,18 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
     </build>
 </project>
