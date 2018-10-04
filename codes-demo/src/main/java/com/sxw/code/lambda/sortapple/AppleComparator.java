@@ -82,5 +82,17 @@ public class AppleComparator implements Comparator<Apple> {
 
         // 类似积分的思想？？
         System.out.println(integrate((double x) -> x + 10, 3, 7));
+
+        // 接口默认实现类
+        List<Integer> nums = Arrays.asList(1, 2, 3, 4, 5, 99, 4);
+        nums.sort((a, b) -> a.compareTo(b));
+
+        nums.sort(Integer::compareTo);
+
+        nums.sort(Comparator.comparingInt(value -> {
+            return value.intValue();
+        }));
+
+        nums.sort(Comparator.comparingInt(Integer::intValue));
     }
 }
