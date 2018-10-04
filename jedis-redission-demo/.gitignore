@@ -2,5 +2,6 @@
 .idea
 jedis-redission-demo.iml
 
-.idea/
 
+
+/target
