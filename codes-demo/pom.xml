@@ -154,11 +154,12 @@
             <version>3.8.1</version>
         </dependency>
 
-        <!--<dependency>
+        <dependency>
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
             <version>3.6.0</version>
-        </dependency>-->
+            <scope>test</scope>
+        </dependency>
 
         <!-- ehcache不要混用，spring-cache现在还是只有支持到ehcache2 -->
         <dependency>
