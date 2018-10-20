@@ -7,6 +7,10 @@ import java.util.concurrent.CompletableFuture;
  * User: shixiangweii
  * Date: 2018-10-20
  * Time: 11:29
+ * <p>
+ * 其实就是新增一个异步编排的功能，其实也没什么特别大的卵用
+ * 其实用最原始的get，然后组合一下也能得到，就是这样代码写少点，
+ * 然后还有for-join支持
  *
  * @author shixiangweii
  */
