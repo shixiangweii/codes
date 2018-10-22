@@ -12,8 +12,6 @@ import java.util.regex.Pattern;
  * Time: 17:32
  */
 public class RegexTest {
-
-
     /**
      * 正则表达式，编译得到模式，匹配器
      *
