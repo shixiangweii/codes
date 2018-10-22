@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Description:
+ * Description: 正则表达式测试
  * User: shixiangweii
  * Date: 2018-04-29
  * Time: 17:32
