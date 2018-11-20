@@ -10,7 +10,7 @@
     </resultMap>
 
     <insert id="insert">
-        INSERT INTO t_user (user_id, name, age) VALUES (#{userId}, #{name}, #{age})
+        INSERT INTO t_user (user_id, `name`, age) VALUES (#{userId}, #{name}, #{age})
     </insert>
 
     <select id="findAll" resultMap="resultMap">
@@ -31,6 +31,7 @@
     </select>
 
     <sql id="columnsName">
-        id, user_id, name, age
+        <!-- name上一定要加反引号 -->
+        id, user_id, `name`, age
     </sql>
 </mapper>
