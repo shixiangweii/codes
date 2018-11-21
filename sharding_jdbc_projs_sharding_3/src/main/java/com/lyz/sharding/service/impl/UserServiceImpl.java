@@ -40,13 +40,15 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void transactionTestSucess() {
         User u = new User();
+        // [1][1]
         u.setUserId(13);
         u.setAge(25);
-        u.setName("war3 1.27-1120-01");
+        u.setName("user-11-21-01");
         userMapper.insert(u);
 
         Student student = new Student();
-        student.setStudentId(21);
+        // [0][0]
+        student.setStudentId(20);
         student.setAge(21);
         student.setName("hehe-stu-01");
         studentMapper.insert(student);
@@ -56,16 +58,17 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void transactionTestFailure() throws IllegalAccessException {
         User u = new User();
-
+        // [0][2]
         u.setUserId(14);
         u.setAge(25);
-        u.setName("war3 1.27 good-03");
+        u.setName("trans_test_fail2");
         userMapper.insert(u);
 
         Student student = new Student();
+        // [1][1]
         student.setStudentId(21);
         student.setAge(21);
-        student.setName("hehe1-02");
+        student.setName("hehe1-02-transtest2");
         studentMapper.insert(student);
         throw new IllegalAccessException();
     }
