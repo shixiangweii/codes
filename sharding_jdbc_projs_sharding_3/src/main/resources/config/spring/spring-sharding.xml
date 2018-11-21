@@ -4,21 +4,14 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:sharding="http://shardingsphere.io/schema/shardingsphere/sharding"
-
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context-4.0.xsd
-
-       http://shardingsphere.io/schema/shardingsphere/sharding
-       http://shardingsphere.io/schema/shardingsphere/sharding/sharding.xsd
-
-
-        http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-    ">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-4.0.xsd
+           http://shardingsphere.io/schema/shardingsphere/sharding
+           http://shardingsphere.io/schema/shardingsphere/sharding/sharding.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
     <context:component-scan base-package="com.lyz.sharding"/>
 
@@ -27,19 +20,33 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
-    <!-- 配置sqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="shardingDataSource"/>
         <property name="mapperLocations" value="classpath*:config/mapper/*Mapper.xml"/>
     </bean>
 
+    <!-- spring事务管理 -->
+    <bean id="transManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="shardingDataSource"/>
+    </bean>
 
+    <tx:annotation-driven transaction-manager="transManager"/>
+
+    <!-- 从下面具体配置每个表的分库分表规则，就体现“分库分表规则对应用透明化”，
+        “透明化”其实就是把分片的具体实施规则编码再项目中，而用类似MyCat这种中间件，就是项目代码和单库的代码没有什么不一样，
+         分库分表的规则，在mycat的中间件里进行配置-->
+
+    <!-- 分片配置 START -->
+
+    <!-- 分片数据源[0] -->
     <bean id="ds0" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3380/sharding_0"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
     </bean>
+
+    <!-- 分片数据源[1] -->
     <bean id="ds1" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/sharding_1"/>
@@ -47,131 +54,35 @@
         <property name="password" value="rootsxw"/>
     </bean>
 
+    <!-- t_user分库策略 -->
     <sharding:inline-strategy id="databaseStrategyUser" sharding-column="user_id"
                               algorithm-expression="ds$->{user_id % 2}"/>
 
+    <!-- t_student分库策略 -->
     <sharding:inline-strategy id="databaseStrategyStu" sharding-column="student_id"
                               algorithm-expression="ds$->{student_id % 2}"/>
 
-
+    <!-- t_user分表策略 -->
     <sharding:inline-strategy id="userTableStrategy" sharding-column="user_id"
                               algorithm-expression="t_user_$->{user_id % 3}"/>
 
+    <!-- t_student分表策略 -->
     <sharding:inline-strategy id="stuTableStrategy" sharding-column="student_id"
                               algorithm-expression="t_student_$->{student_id % 2}"/>
 
+    <!--分片数据源 -->
     <sharding:data-source id="shardingDataSource">
         <sharding:sharding-rule data-source-names="ds0,ds1">
             <sharding:table-rules>
                 <sharding:table-rule logic-table="t_user" actual-data-nodes="ds$->{0..1}.t_user_$->{0..2}"
                                      database-strategy-ref="databaseStrategyUser"
                                      table-strategy-ref="userTableStrategy"/>
-
                 <sharding:table-rule logic-table="t_student" actual-data-nodes="ds$->{0..1}.t_student_$->{0..1}"
                                      database-strategy-ref="databaseStrategyStu" table-strategy-ref="stuTableStrategy"/>
             </sharding:table-rules>
         </sharding:sharding-rule>
     </sharding:data-source>
 
-
-    <!-- 配置好dataSourceRulue,即对数据源进行管理 -->
-    <!--    <bean id="dataSourceRule" class="com.dangdang.ddframe.rdb.sharding.api.rule.DataSourceRule">
-            <constructor-arg>
-                <map>
-                    <entry key="sharding_0" value-ref="sharding_0"/>
-                    <entry key="sharding_1" value-ref="sharding_1"/>
-                </map>
-            </constructor-arg>
-        </bean>-->
-
-    <!-- 对t_user表的配置，进行分库配置，逻辑表名为t_user，每个库有实际的三张表 -->
-    <!--   <bean id="userTableRule" class="com.dangdang.ddframe.rdb.sharding.api.rule.TableRule">
-           <constructor-arg value="t_user" index="0"/>
-           <constructor-arg index="1">
-               <list>
-                   <value>t_user_00</value>
-                   <value>t_user_01</value>
-                   <value>t_user_02</value>
-               </list>
-           </constructor-arg>
-           <constructor-arg index="2" ref="dataSourceRule"/>
-           <constructor-arg index="3" ref="userDatabaseShardingStrategy"/>
-           <constructor-arg index="4" ref="userTableShardingStrategy"/>
-       </bean>-->
-
-    <!-- t_user分库策略 -->
-    <!--    <bean id="userDatabaseShardingStrategy"
-              class="com.dangdang.ddframe.rdb.sharding.api.strategy.database.DatabaseShardingStrategy">
-            <constructor-arg index="0" value="user_id"/>
-            <constructor-arg index="1">
-                <bean class="com.lyz.sharding.algorithm.UserSingleKeyDatabaseShardingAlgorithm"/>
-            </constructor-arg>
-        </bean>-->
-
-    <!-- t_user 分表策略 -->
-    <!--    <bean id="userTableShardingStrategy"
-              class="com.dangdang.ddframe.rdb.sharding.api.strategy.table.TableShardingStrategy">
-            <constructor-arg index="0" value="user_id"/>
-            <constructor-arg index="1">
-                <bean class="com.lyz.sharding.algorithm.UserSingleKeyTableShardingAlgorithm"/>
-            </constructor-arg>
-        </bean>-->
-
-
-    <!-- 对t_student表的配置，进行分库配置，逻辑表名为t_student，每个库有实际的三张表 -->
-    <!--    <bean id="studentTableRule" class="com.dangdang.ddframe.rdb.sharding.api.rule.TableRule">
-            <constructor-arg value="t_student" index="0"/>
-            <constructor-arg index="1">
-                <list>
-                    <value>t_student_00</value>
-                    <value>t_student_01</value>
-                </list>
-            </constructor-arg>
-            <constructor-arg index="2" ref="dataSourceRule"/>
-            <constructor-arg index="3" ref="studentDatabaseShardingStrategy"/>
-            <constructor-arg index="4" ref="studentTableShardingStrategy"/>
-        </bean>-->
-
-    <!-- t_student分库策略 -->
-    <!--   <bean id="studentDatabaseShardingStrategy"
-             class="com.dangdang.ddframe.rdb.sharding.api.strategy.database.DatabaseShardingStrategy">
-           <constructor-arg index="0" value="student_id"/>
-           <constructor-arg index="1">
-               <bean class="com.lyz.sharding.algorithm.StudentSingleKeyDatabaseShardingAlgorithm"/>
-           </constructor-arg>
-       </bean>-->
-
-    <!-- t_student 分表策略 -->
-    <!--    <bean id="studentTableShardingStrategy"
-              class="com.dangdang.ddframe.rdb.sharding.api.strategy.table.TableShardingStrategy">
-            <constructor-arg index="0" value="student_id"/>
-            <constructor-arg index="1">
-                <bean class="com.lyz.sharding.algorithm.StudentSingleKeyTableShardingAlgorithm"/>
-            </constructor-arg>
-        </bean>-->
-
-
-    <!-- 构成分库分表的规则 传入数据源集合和每个表的分库分表的具体规则 -->
-    <!--    <bean id="shardingRule" class="com.dangdang.ddframe.rdb.sharding.api.rule.ShardingRule">
-            <constructor-arg index="0" ref="dataSourceRule"/>
-            <constructor-arg index="1">
-                <list>
-                    <ref bean="userTableRule"/>
-                    <ref bean="studentTableRule"/>
-                </list>
-            </constructor-arg>
-        </bean>-->
-
-    <!-- 对datasource进行封装 -->
-    <!--    <bean id="shardingDataSource" class="com.dangdang.ddframe.rdb.sharding.api.ShardingDataSource">
-            <constructor-arg ref="shardingRule"/>
-        </bean>-->
-
-    <!-- 事务 -->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="shardingDataSource"/>
-    </bean>
-
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!-- 分片配置 END -->
 
 </beans>
