@@ -18,4 +18,10 @@ public interface StudentMapper {
     List<Student> findAll();
 
     List<Student> findByStudentIds(List<Integer> studentIds);
+
+    Student getStudentById(int studentId);
+
+    List<Student> getStudentsById(int studentId);
+
+
 }

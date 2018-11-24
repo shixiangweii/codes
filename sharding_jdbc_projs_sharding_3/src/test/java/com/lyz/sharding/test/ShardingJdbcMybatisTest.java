@@ -80,6 +80,62 @@ public class ShardingJdbcMybatisTest {
         }
     }
 
+    /**
+     * 拆分的表与未进行拆分的表进行联表查，并传入分表字段值，可以直接扫描目标表
+     *
+     * 等值 inner join 直接student,user，都可以直接扫描目标表
+     *
+     * DEBUG StudentMapper.getStudentById - ==>  Preparing: select s.id, s.student_id as studentId, s.`name`, s.age ,u.user_id as userId from t_student s inner join t_user u on s.student_id=u.user_id where s.student_id=?
+       DEBUG StudentMapper.getStudentById - ==> Parameters: 4(Integer)
+       DEBUG StudentMapper.getStudentById - <==      Total: 1
+       DEBUG spring.SqlSessionUtils - Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7fc44dec]
+       DEBUG datasource.DataSourceUtils - Returning JDBC Connection to DataSource
+       Student(id=2, studentId=4, name=sxw, age=25, user=null, userId=4)
+
+
+     */
+    @Test
+    public void testInnerJoin() {
+        Student byId = studentService.getById(4);
+        System.out.println(byId);
+    }
+
+    /**
+     * DEBUG StudentMapper.getStudentsById - ==>  Preparing: select s.id, s.student_id as studentId, s.`name`, s.age ,u.user_id as userId from t_student s
+     * left join t_user u on
+     * s.student_id=u.user_id
+     * where s.student_id=?
+       DEBUG StudentMapper.getStudentsById - ==> Parameters: 4(Integer)
+       DEBUG StudentMapper.getStudentsById - <==      Total: 3
+       DEBUG spring.SqlSessionUtils - Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2dbf4cbd]
+       DEBUG datasource.DataSourceUtils - Returning JDBC Connection to DataSource
+       [
+        Student(id=2, studentId=4, name=sxw, age=25, user=null, userId=4),
+        Student(id=2, studentId=4, name=sxw, age=25, user=null, userId=null),
+        Student(id=2, studentId=4, name=sxw, age=25, user=null, userId=null)
+       ]
+     */
+    @Test
+    public void testLeftJoin() {
+        /*
+            https://blog.csdn.net/loveyou86400/article/details/80334880
+            SQL中使用left join进行联表查询，并传入了分表字段，扫描所有表
+
+            上面就可以看出，left join t_user的时候，根据传入的student_id=4,则user_id=4作为链接条件，
+            会把[0]库里的，所有user表扫一遍，left join,所以，会有3条记录，刚好对应[0]中的3张user表
+
+         */
+        System.out.println(studentService.getStusById(4));
+    }
+
+
+
+    @Test
+    public void testFindStuAll() {
+        List<Student> all = studentService.findAll();
+        System.out.println(all);
+    }
+
     @Test
     public void testTransactionTestSucess() {
         userService.transactionTestSucess();

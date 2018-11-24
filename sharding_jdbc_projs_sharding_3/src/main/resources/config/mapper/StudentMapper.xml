@@ -32,4 +32,52 @@
     <sql id="columnsName">
         id, student_id, name, age
     </sql>
+
+
+    <select id="getStudentById" resultType="com.lyz.sharding.entity.Student">
+        select
+            s.id,
+            s.student_id as studentId,
+            s.`name`,
+            s.age
+            <!--
+            -->
+            ,u.user_id as userId
+        from t_student s
+        <!--
+         -->
+            inner join t_user u
+
+        on
+        <!--
+        s.id=u.id
+        -->
+        s.student_id=u.user_id
+        where s.student_id=#{stuId}
+    </select>
+
+    <select id="getStudentsById" resultType="com.lyz.sharding.entity.Student">
+        select
+            s.id,
+            s.student_id as studentId,
+            s.`name`,
+            s.age
+            ,u.user_id as userId
+            <!--
+            -->
+        from t_student s
+        <!--
+         -->
+            left join t_user u
+
+        on
+
+        <!--
+        s.id=u.id
+        -->
+        s.student_id=u.user_id
+
+        where s.student_id=#{stuId}
+    </select>
+
 </mapper>
