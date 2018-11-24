@@ -80,7 +80,24 @@ public class ShardingJdbcMybatisTest {
         }
     }
 
+
+
     /**
+     *
+     * 一开始的时候，自己想的太神奇了，直接想的是，跨库来left join,并且用的user.id=student.id来作为连接条件
+     * 其实，自己想想，配置分库规则，分表规则的时候，都是用的user_id,student_id来配置规则，
+     * 这里突然冒出来一个id,如果没有进行额外配置的话，当然会查不出
+     * 所以这里其实还是自己对sharding-jdbc分库分表的思路，理解还是有偏差
+     *
+     * 这里自己也发现一个问题，当user_id=student_id这种等值连接的时候，如果分库逻辑都是用数据库数量，那么，其实，最终
+     * 貌似，2个表一定会落在同一个库，在这种ID，相同下，单自己这个例子其实很大的问题，
+     *
+     * user_id，student_id，其实这种相连，纯粹是测语法，
+     * 正常(user_id, student_id),(id,student_id)
+     * 假设user一对一关联一个student,那么其实user.student_id并不是路由键，这种时候，怎去额外配置？
+     * 这里就提现除另外一个问题，平时demo其实很多时候就是走个语法，稍微推敲下，多想一下，就有很多的问题，要去解决
+     *
+     *
      * 拆分的表与未进行拆分的表进行联表查，并传入分表字段值，可以直接扫描目标表
      *
      * 等值 inner join 直接student,user，都可以直接扫描目标表
