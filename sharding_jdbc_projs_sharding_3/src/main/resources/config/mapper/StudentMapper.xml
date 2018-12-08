@@ -51,8 +51,9 @@
         on
         <!--
         s.id=u.id
-        -->
         s.student_id=u.user_id
+        -->
+        s.student_id=u.stu_id
         where s.student_id=#{stuId}
     </select>
 
