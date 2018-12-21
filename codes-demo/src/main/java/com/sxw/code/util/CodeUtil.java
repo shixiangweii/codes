@@ -45,4 +45,22 @@ public class CodeUtil {
     public static final Float FLOAT_0 = 0f;
 
     public static final Double DOUBLE_0 = 0d;
+
+    /**
+     * 等于0
+     */
+    public static boolean eq0(Integer num) {
+        return INT_0.equals(num);
+    }
+
+    /**
+     * 大于0
+     * num是否 >0
+     *
+     * @param num
+     * @return num为null，返回false
+     */
+    public static boolean gt0(Integer num) {
+        return num != null && num > 0;
+    }
 }
