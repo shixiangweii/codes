@@ -19,6 +19,7 @@ public class MyClassLoader extends URLClassLoader {
     Date startDate = new Date();
 
     public MyClassLoader(URL[] urls) {
+        //super(urls, Thread.currentThread().getContextClassLoader());
         super(urls);
     }
 
@@ -31,7 +32,7 @@ public class MyClassLoader extends URLClassLoader {
         super.close();
     }
 
-    public void addJarFile(String jarfile) throws MalformedURLException {
+    /*public void addJarFile(String jarfile) throws MalformedURLException {
         URL url = new URL("file:" + jarfile);
         addURL(url);
     }
@@ -40,7 +41,7 @@ public class MyClassLoader extends URLClassLoader {
         path = "file:" + path;
         URL url = new URL(path);
         addURL(url);
-    }
+    }*/
 
     @Override
     public String toString() {
