@@ -35,6 +35,8 @@ public class SimpleClassLoadDemo {
         // 只要定义好接口，直接这里面向接口编程，转换
         // 纯业务逻辑分离出来打成独立的jar包，然后通过通过ClassLoader配合文件监听系统 比如apache的commons-vfs来做java的热部署
         // ((Runnable)clazz.newInstance()).run();
+
+        // 后期可以利用这个逻辑加赞新的业务逻辑
     }
 
 }
