@@ -19,6 +19,9 @@ public class TryCatchFinallyTest {
             return name;
         } finally {
             name = "finally";
+
+            // 如果finally中直接return则直接返回
+           //  return "shixinagwe";
         }
     }
 
