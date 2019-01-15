@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
  * matcher.matches 完全匹配，会修改游标
  * reset() 重置游标
  * find()查找下一个
- *
- *
+ * <p>
+ * <p>
  * Description: 正则表达式测试
  * User: shixiangweii
  * Date: 2018-04-29
@@ -115,19 +115,19 @@ public class RegexTest {
      * "匹配"，"匹配位置"
      * "匹配结果"
      * "全局"
-     *
+     * <p>
      * 求助，*代表任意多，如果是懒惰模式不是应该匹配到“北”就停止吗？
-     *
+     * <p>
      * ：他的后面有(?=\\()，表示先行断言（顺序环视），需要确保前面“.*?”匹配到的字符后要挨着（左括号
-     *
+     * <p>
      * (?<=Expression)
-     逆序肯定环视，表示所在位置左侧能够匹配Expression
-     (?<!Expression)
-     逆序否定环视，表示所在位置左侧不能匹配Expression
-     (?=Expression)
-     顺序肯定环视，表示所在位置右侧能够匹配Expression
-     (?!Expression)
-     顺序否定环视，表示所在位置右侧不能匹配Expression
+     * 逆序肯定环视，表示所在位置左侧能够匹配Expression
+     * (?<!Expression)
+     * 逆序否定环视，表示所在位置左侧不能匹配Expression
+     * (?=Expression)
+     * 顺序肯定环视，表示所在位置右侧能够匹配Expression
+     * (?!Expression)
+     * 顺序否定环视，表示所在位置右侧不能匹配Expression
      */
     @Test
     public void testReg() {
@@ -148,4 +148,21 @@ public class RegexTest {
             System.out.println(matcher.group(0));
         }
     }
+
+    /**
+     * ///////MyClass.class
+     */
+    @Test
+    public void testReplace() {
+        String classFile = "com.jd.".replaceAll(".", "/") + "MyClass.class";
+
+        System.out.println(classFile);
+
+        /**
+         * 正则表达式，替换"."，
+         */
+        System.out.println("com.jd.".replaceAll("\\.", "/") + "MyClass.class");
+    }
+
+
 }

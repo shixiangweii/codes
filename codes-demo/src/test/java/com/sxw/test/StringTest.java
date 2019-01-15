@@ -3,6 +3,8 @@ package com.sxw.test;
 import org.junit.Test;
 
 /**
+ * https://www.nowcoder.com/questionTerminal/5a9f57aee208466484118b27f3f09c2e
+ * <p>
  * Description:
  * User: shixiangweii
  * Date: 2018-11-02
@@ -35,5 +37,31 @@ public class StringTest {
 
         // false 相当于 s2 == s1 的比较结果
         System.out.println(s2 == s2.intern());
+    }
+
+    /**
+     * jdk7
+     * 方法区，永久代
+     */
+    static String str0 = "0123456789";
+    static String str1 = "0123456789";
+
+    /**
+     * 用 new 在堆(heap)上的内存
+     * "56789"
+     */
+    String str2 = str1.substring(5);
+    /**
+     * new 新建
+     */
+    String str3 = new String(str2);
+    /**
+     * new 新建的
+     */
+    String str4 = new String(str3.toCharArray());
+
+    @Test
+    public void testString() {
+        str0 = null;
     }
 }
