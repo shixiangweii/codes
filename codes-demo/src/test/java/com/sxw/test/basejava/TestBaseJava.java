@@ -67,12 +67,23 @@ public class TestBaseJava {
      */
     @Test
     public void test4() {
-        long test=012;
-        float f=-412;
+        long test = 012;
+        float f = -412;
         // boolean类型不能和任何类型进行转换，会报出类型异常错误
         // int other =(int)true;
-        double d=0x12345678;
+        double d = 0x12345678;
         // byte的取值范围是-128—127
         // byte b=128;
+    }
+
+    /**
+     * https://www.cnblogs.com/yesiamhere/p/6675067.html
+     */
+    @Test
+    public void testOp() {
+        int i = 5;
+        int j = 10;
+        System.out.println(~j);
+        System.out.println(i + ~j);
     }
 }
