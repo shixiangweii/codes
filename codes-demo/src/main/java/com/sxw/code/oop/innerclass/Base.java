@@ -1,4 +1,6 @@
-package com.sxw.code.oop.inherit;
+package com.sxw.code.oop.innerclass;
+
+import com.sxw.code.oop.innerclass.Enclosingone.InsideOne;
 
 public class Base {
 
@@ -34,5 +36,18 @@ public class Base {
      */
     public static void main(String[] args) {
         Base b = new Sub();
+        Enclosingone eo = new Enclosingone();
+
+
+        Enclosingone.InsideOne ei = eo.new InsideOne();
+
+        // 最前面用import导入
+        InsideOne ei2 = eo.new InsideOne();
+    }
+}
+
+
+class Enclosingone {
+    public class InsideOne {
     }
 }

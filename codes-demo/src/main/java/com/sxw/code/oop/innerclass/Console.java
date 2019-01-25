@@ -1,4 +1,4 @@
-package com.sxw.code.oop.inherit;
+package com.sxw.code.oop.innerclass;
 
 /**
  * Description:

@@ -23,6 +23,11 @@ package com.sxw.code.oop.order;
    子类的构造函数。
  *
  *
+ * https://www.nowcoder.com/questionTerminal/6f126682f29544708bb73a08e4e2bd0a
+ *
+ * 父类静态域——》子类静态域——》父类成员初始化——》父类构造块——》1父类构造方法——》2子类成员初始化——》子类构造块——》3子类构造方法；
+ *
+ *
  *
  */
 public class HelloB extends HelloA {

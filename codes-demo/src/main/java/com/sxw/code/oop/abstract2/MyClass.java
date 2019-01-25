@@ -1,4 +1,4 @@
-package com.sxw.code.oop.abs;
+package com.sxw.code.oop.abstract2;
 
 public abstract class MyClass {
     public int constInt = 5;
