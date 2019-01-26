@@ -74,6 +74,13 @@ public class TestBaseJava {
         double d = 0x12345678;
         // byte的取值范围是-128—127
         // byte b=128;
+
+        double dd = 5.3e12;
+        System.out.println(dd);
+
+       // float ff = 5.3e12;
+        // 包装类型，不能直接赋值
+       // Double oD=3;
     }
 
     /**
