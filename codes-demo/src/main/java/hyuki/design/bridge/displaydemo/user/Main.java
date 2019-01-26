@@ -28,6 +28,13 @@ import hyuki.design.bridge.displaydemo.api.impler.api.impl.StringDisplayImpl;
  * @author shixiangweii
  */
 public class Main {
+    /**
+     * 从底层的框架来看，OOP，可以用来封装各种基本编程组件，
+     * 从业务系统角度来看，自己要学会用OOP的思想，以基础模块，基础子系统，去设计类，
+     * 例如，评论子系统/模块
+     * 其实都是用OOP的思想，但是具体的编码实现的思考单位不一样
+     * @param args
+     */
     public static void main(String[] args) {
         Display d1 = new Display(new StringDisplayImpl("Hello, China."));
         Display d2 = new CountDisplay(new StringDisplayImpl("Hello, World."));
