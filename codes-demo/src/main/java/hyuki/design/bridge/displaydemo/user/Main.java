@@ -17,7 +17,7 @@ import hyuki.design.bridge.displaydemo.api.impler.api.impl.StringDisplayImpl;
  * <p>
  * 其实可以从：
  *
- * 使用接口的人   Main
+ * 使用接口的人,调用方   Main
  * 提供方
  *    具体实现的人   impler
  *    扩展功能的人   extender
