@@ -21,6 +21,10 @@
     举个实际应用的案例  ---->通过标准JavaBean的属性名获取其属性值
     BeanUtil类
 4)通过Class,Method来认识泛型的本质
+
+
+3.参考
+http://www.qingmiaokeji.cn/article/19
    
   
   
