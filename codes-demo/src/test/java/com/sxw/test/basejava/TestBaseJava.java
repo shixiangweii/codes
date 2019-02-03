@@ -81,6 +81,9 @@ public class TestBaseJava {
        // float ff = 5.3e12;
         // 包装类型，不能直接赋值
        // Double oD=3;
+
+        // 数值类型，居然是可以直接赋值给obj的
+        Object ojb = 3;
     }
 
     /**
@@ -90,6 +93,7 @@ public class TestBaseJava {
     public void testOp() {
         int i = 5;
         int j = 10;
+
         System.out.println(~j);
         System.out.println(i + ~j);
     }
