@@ -23,4 +23,8 @@ public class ViewObjUtil {
     public static List<Map<String, Object>> getList(int size) {
         return new ArrayList<>(size <= 0 ? 10 : size);
     }
+
+    public static <K, V> Map<K, V> getMap(int size) {
+        return new HashMap<>(size <= 0 ? 16 : size);
+    }
 }

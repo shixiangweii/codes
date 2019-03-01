@@ -15,6 +15,13 @@ import org.junit.Test;
 public class StringTest {
 
     @Test
+    public void testStringConcat() {
+        System.out.println("is " + 100 + 5);
+        System.out.println(100 + 5 + " is" + 9 + 1);
+        System.out.println("is " + (100 + 5));
+    }
+
+    @Test
     public void testStringEqual() {
         String s1 = "Programming";
         String s2 = new String("Programming");

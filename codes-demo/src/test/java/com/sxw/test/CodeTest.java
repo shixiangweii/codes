@@ -1,7 +1,10 @@
 package com.sxw.test;
 
 import com.sxw.code.util.CodeUtil;
+import com.sxw.code.util.vo.ViewObjUtil;
 import org.junit.Test;
+
+import java.util.Map;
 
 /**
  * Description:
@@ -21,7 +24,7 @@ public class CodeTest {
 
     /**
      * https://zhidao.baidu.com/question/382259508.html
-     *
+     * <p>
      * x++只能作为右值，而++x既可作为左值又可作为右值
      * C语言里，"++x=++y"是可以的
      * "x++=y++"不可以
@@ -44,5 +47,21 @@ public class CodeTest {
         System.out.println(x + "," + y);
 
         // ++x = ++y;
+    }
+
+    @Test
+    public void testViewObjectUtil() {
+        Map<String, String> map = ViewObjUtil.getMap(12);
+        Map<String, Object> map2 = ViewObjUtil.getMap(12);
+        Map<Integer, Object> map3 = ViewObjUtil.getMap(12);
+    }
+
+    @Test
+    public void testArr() {
+        String[] arr = {"a", "b"};
+        for (String str : arr) {
+            str = "c";
+        }
+        System.out.println(arr);
     }
 }
