@@ -27,6 +27,8 @@ package com.sxw.code.oop.order;
  *
  * 父类静态域——》子类静态域——》父类成员初始化——》父类构造块——》1父类构造方法——》2子类成员初始化——》子类构造块——》3子类构造方法；
  *
+ * https://www.nowcoder.com/questionTerminal/288fb5d649614bdfa8409080f167c920
+ *
  *
  *
  */

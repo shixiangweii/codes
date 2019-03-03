@@ -11,6 +11,10 @@ import java.util.List;
  * Date: 2019-01-26
  * Time: 13:00
  *
+ * <? super T>表示包括T在内的任何T的父类
+ * <? extends T>表示包括T在内的任何T的子类
+ *
+ *
  * @author shixiangweii
  */
 public class TestGeneric {

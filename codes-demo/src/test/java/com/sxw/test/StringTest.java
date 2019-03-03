@@ -10,6 +10,9 @@ import org.junit.Test;
  * Date: 2018-11-02
  * Time: 11:21
  *
+ * \
+ * https://www.nowcoder.com/questionTerminal/093bfa948d144ce3b0a68b938ae8b4ec
+ *
  * @author shixiangweii
  */
 public class StringTest {
@@ -70,5 +73,17 @@ public class StringTest {
     @Test
     public void testString() {
         str0 = null;
+    }
+
+  //  链接：https://www.nowcoder.com/questionTerminal/10afeae4a5c24a35898c0771fb5995b1
+   // 来源：牛客网
+
+    private static final String MESSAGE="taobao";
+    public static void main(String [] args) {
+        String a ="tao"+"bao";
+        String b="tao";
+        String c="bao";
+        System.out.println(a==MESSAGE);
+        System.out.println((b+c)==MESSAGE);
     }
 }
