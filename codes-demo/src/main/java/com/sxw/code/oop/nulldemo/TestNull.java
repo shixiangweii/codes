@@ -27,5 +27,12 @@ public class TestNull {
         testNull.testMethod();
 
         ((TestNull)null).testMethod();
+
+        // 不会报错输出null
+        System.out.println(((TestNull)null));
+
+        // NPE
+        Integer i = null;
+        int a = i;
     }
 }
