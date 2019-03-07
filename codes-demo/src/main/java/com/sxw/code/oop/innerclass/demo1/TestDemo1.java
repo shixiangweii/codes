@@ -39,6 +39,9 @@ public class TestDemo1 {
 
     ;
 
+    abstract class EE {
+    }
+
     /**
      * https://www.nowcoder.com/questionTerminal/964cf7d6cd29449f91f1dbe21bae8176
      */
@@ -50,6 +53,10 @@ public class TestDemo1 {
 
         class B {
 
+        }
+
+        abstract class C {
+            public void a() {}
         }
     }
 }

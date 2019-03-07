@@ -17,6 +17,7 @@ public class OutClass {
 
     public InnerClass getInnerClass(final int age, final String name) {
         return new InnerClass() {
+            // 匿名类，是innerclass的子类
             int age_;
             String name_;
             int c_;

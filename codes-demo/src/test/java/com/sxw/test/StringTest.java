@@ -85,5 +85,7 @@ public class StringTest {
         String c="bao";
         System.out.println(a==MESSAGE);
         System.out.println((b+c)==MESSAGE);
+
+        System.out.println("痛风急性发作期"=="\uFEFF痛风急性发作期");
     }
 }

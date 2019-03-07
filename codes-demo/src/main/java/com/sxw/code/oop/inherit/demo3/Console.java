@@ -25,14 +25,17 @@ class Human {
 class Man extends Human {
 
     public Man() {
+        // this其实就是调用自身的构造函数，super是调用父亲的构造函数
+        // 但是如果显示调用构造函数，一定是第一行
+         this("");
         // super语句必须是构造方法内部，第一行
-        super("");
+      //  super("");
         System.out.println();
-        // this();
     }
 
-/*    public Man(String text) {
+    public Man(String text) {
+        super("");
 
-    }*/
+    }
 }
 

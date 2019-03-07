@@ -32,6 +32,7 @@ public class Base {
      * 创建基类即默认调用Base()方法，在方法中调用callName()方法，由于派生类中存在此方法，
      * 则被调用的callName（）方法是派生类中的方法，此时派生类还未构造，所以变量baseName的值为null
      *
+     * 其实继承就是编码层面的复用，其实实际程序线程跑的时候，上下文，其实是子类的上下文
      * @param args
      */
     public static void main(String[] args) {

@@ -29,6 +29,7 @@ public class TestNull {
         ((TestNull)null).testMethod();
 
         // 不会报错输出null
+        // null强转引用类型，并不会报错
         System.out.println(((TestNull)null));
 
         // NPE

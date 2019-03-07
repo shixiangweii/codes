@@ -27,7 +27,7 @@ class Test2 {
 
         // 成员变量有初始值，而局部变量没有初始值得。本体中的s定义在方法中所以为局部变量-没有初始值。变量没有初始值就使用了，编译通不过
         String s;
-      //  System.out.println("s="+s);
+      // System.out.println("s="+s);
     }
 
     /**

@@ -23,6 +23,9 @@ public class Demo {
         Super subToSuper = new Sub();
 
         for (Collection<?> collection : collections) {
+            // 静态方法不能被子类覆盖
+            // 静态分派，泛型不存在说那种List<?>可以接到Collection<?>，
+            // 静态分派，泛型参数类型就是完全一致
             System.out.println(subToSuper.getType(collection));
         }
     }

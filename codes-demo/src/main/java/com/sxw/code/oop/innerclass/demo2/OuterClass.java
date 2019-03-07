@@ -6,6 +6,31 @@ package com.sxw.code.oop.innerclass.demo2;
 public class OuterClass {
     private float f = 1.0f;
     //插入代码到这里
+    private static float ff = 0f;
+
+  static  class InnerClass1 {
+
+ public  float func2() {
+     System.out.println(ff);
+          return 0f;
+          //return f;
+      }
+
+        public static float func() {
+
+            return 0f;
+        }
+
+  }
+
+
+  /*  非静态内部类，不能有静态方法
+     class InnerClass7 {
+
+          public static float func() {
+
+              return 0f;
+          }*/
 
 /*
 内部类不是用static关键字修饰的内部类怎不能用static方法
