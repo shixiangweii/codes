@@ -41,5 +41,6 @@ public class TestArray {
 
         // float f3[][] = new float[][6];
         float f6[][] = new float[6][];
+        float []f7[] = new float[6][];
     }
 }

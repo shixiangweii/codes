@@ -1,7 +1,9 @@
 package com.sxw.test;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 import java.util.Date;
@@ -60,5 +62,25 @@ public class JodaTimeTest {
             DateTimeFormat.forPattern("yyyy-MM-dd").parseDateTime(text).toDate();
             //DateTimeFormat.forPattern("yyyy-MM-dd").parseLocalDateTime(text).toDate();
         }
+    }
+
+    @Test
+    public void testJodaTimeOperation() {
+        DateTime now = DateTime.now();
+        System.out.println(now.getHourOfDay());
+        System.out.println(now.getDayOfWeek());
+
+        System.out.println(DateTimeConstants.FRIDAY);
+
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
+
+        System.out.println(DateTime.parse("2019-4-12 10:46", fmt));
+
+        System.out.println(now.getYear());
+
+        System.out.println(now.getMonthOfYear());
+        System.out.println(now.getDayOfMonth());
+
+        System.out.println(System.currentTimeMillis());
     }
 }
