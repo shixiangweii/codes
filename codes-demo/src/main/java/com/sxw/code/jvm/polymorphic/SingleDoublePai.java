@@ -14,7 +14,8 @@ public class SingleDoublePai {
         Father child = new Child();
 
         // 动态单分派，方法覆盖
-        // 编译期已经了确定了目标方法的参数类型（编译期根据参数的静态类型进行静态分派），因此唯一可以影响到虚拟机选择的因素只有此方法的接受者的实际类型是 Father 还是 Child
+        // 编译期已经了确定了目标方法的参数类型（编译期根据参数的静态类型进行静态分派），
+        // 因此唯一可以影响到虚拟机选择的因素只有此方法的接受者的实际类型是 Father 还是 Child
         father.doSomething(new Eat());
         child.doSomething(new Drink());
     }
