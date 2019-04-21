@@ -35,7 +35,7 @@ public class BigDecimalUtilTest {
 
         double v = new BigDecimal("0.2").add(new BigDecimal(0.1)).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
         System.out.println(v);
-        System.out.println(String.format("%.3f", v));
+        System.out.println(String.format("%.0f", v));
         System.out.println(String.format("%.0f", 99.9d));
         Map<String, Object> map = new HashMap<>(10);
         map.put("1", new BigDecimal("12312.98098923428948"));
