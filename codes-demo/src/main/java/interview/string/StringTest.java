@@ -9,7 +9,7 @@ import org.junit.Test;
  * User: shixiangweii
  * Date: 2018-11-02
  * Time: 11:21
- *
+ * <p>
  * \
  * https://www.nowcoder.com/questionTerminal/093bfa948d144ce3b0a68b938ae8b4ec
  *
@@ -47,6 +47,16 @@ public class StringTest {
 
         // false 相当于 s2 == s1 的比较结果
         System.out.println(s2 == s2.intern());
+
+        String i3 = "100";
+        String i4 = "1" + new String("00");
+        String i5 = "1" + "00";
+        // false
+        System.out.println(i3 == i4);
+        // true
+        System.out.println(i3 == i5);
+        // false
+        System.out.println(i4 == i5);
     }
 
     /**
@@ -75,17 +85,18 @@ public class StringTest {
         str0 = null;
     }
 
-  //  链接：https://www.nowcoder.com/questionTerminal/10afeae4a5c24a35898c0771fb5995b1
-   // 来源：牛客网
+    //  链接：https://www.nowcoder.com/questionTerminal/10afeae4a5c24a35898c0771fb5995b1
+    // 来源：牛客网
 
-    private static final String MESSAGE="taobao";
-    public static void main(String [] args) {
-        String a ="tao"+"bao";
-        String b="tao";
-        String c="bao";
-        System.out.println(a==MESSAGE);
-        System.out.println((b+c)==MESSAGE);
+    private static final String MESSAGE = "taobao";
 
-        System.out.println("痛风急性发作期"=="\uFEFF痛风急性发作期");
+    public static void main(String[] args) {
+        String a = "tao" + "bao";
+        String b = "tao";
+        String c = "bao";
+        System.out.println(a == MESSAGE);
+        System.out.println((b + c) == MESSAGE);
+
+        System.out.println("痛风急性发作期" == "\uFEFF痛风急性发作期");
     }
 }
