@@ -28,13 +28,19 @@ public class TestClone {
         user1.name = "施向伟";
         user1.list.add("2");
 
+        // User(name=shixiangwei, age=12, list=[1, 2])
         System.out.println(user);
+
+        // User(name=施向伟, age=22, list=[1, 2])
         System.out.println(user1);
 
         // 其实还是对值类型，引用类型的认识
         user1.list = new ArrayList<>();
 
+        // User(name=shixiangwei, age=12, list=[1, 2])
         System.out.println(user);
+
+        // User(name=施向伟, age=22, list=[])
         System.out.println(user1);
     }
 }
