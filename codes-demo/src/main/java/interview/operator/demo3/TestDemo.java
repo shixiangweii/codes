@@ -135,6 +135,8 @@ public class TestDemo {
         double d = 5.3e12;
         //  float f=11.1;
         // int i=0.0;
+
+        // 会报错，因为是包装类，3默认转为Integer，Integer无法自动转换为Double
         // Double oD=3;
         Double oD = 3.0;
         Integer oI = 1;

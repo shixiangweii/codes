@@ -1,4 +1,4 @@
-package interview.testEqual;
+package interview.testequal;
 
 import java.util.HashMap;
 

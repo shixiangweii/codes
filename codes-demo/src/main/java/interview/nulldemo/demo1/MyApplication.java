@@ -1,7 +1,7 @@
 package interview.nulldemo.demo1;
 
 class Test {
-    public static void hello() {
+    static void hello() {
         System.out.println("hello");
     }
 }

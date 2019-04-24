@@ -10,7 +10,7 @@ import org.junit.Test;
  *
  * @author shixiangweii
  */
-public class TestNull {
+public class NullTest {
 
     private static void testMethod() {
         System.out.println("testMethod");
@@ -22,18 +22,21 @@ public class TestNull {
     @Test
     public void testNull() {
         // 吃惊了居然不会报错
-        TestNull testNull = null;
+        NullTest testNull = null;
+
         // “不应该”，并不是报错，运行也不会报错
         testNull.testMethod();
 
-        ((TestNull) null).testMethod();
+        ((NullTest) null).testMethod();
 
         // 不会报错输出null
         // null强转引用类型，并不会报错
-        System.out.println(((TestNull) null));
-
-        // NPE
+        // 其实这种自己在平时开发中一直在用啊，就比如调用一个方法 func(Integer n)
+        // func(null)
+        // 只是这里换一种写法 (Integer) null，自己就不认识了？！
+        System.out.println(((NullTest) null));
         Integer i = null;
+        // NPE
         int a = i;
     }
 }
