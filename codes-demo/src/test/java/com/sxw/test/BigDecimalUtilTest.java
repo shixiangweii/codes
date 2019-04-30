@@ -52,5 +52,10 @@ public class BigDecimalUtilTest {
         String from = jsonObject.getString("from");
         System.out.println(from);
 
+        System.out.println(String.format("%02d",1));
+
+        System.out.println("13213123".split("_")[0]);
+        System.out.println("13213123_1".split("_")[0]);
+
     }
 }

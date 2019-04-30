@@ -6,7 +6,7 @@ package interview.exception;
  * User: shixiangweii
  * Date: 2019-01-15
  * Time: 9:03
- *
+ * <p>
  * https://www.nowcoder.com/questionTerminal/5a6ea98ed42347fe81c950a1a206dc7e
  *
  * @author shixiangweii
@@ -42,26 +42,44 @@ public class TryCatchFinally {
         output += "4";
     }
 
-    public static int func3 (){
-        try{
+    public static int func3() {
+        try {
             return 1;
-        }catch (Exception e){
+        } catch (Exception e) {
             return 2;
-        }finally{
+        } finally {
+            return 3;
+        }
+    }
+
+    public static int func4(int n) {
+        try {
+            System.out.println("func4 before");
+            System.out.println(100 / n);
+            return 1;
+        } catch (Exception e) {
+            System.out.println("func4 after");
+            throw new RuntimeException();
+        } finally {
+            System.out.println("finally");
             return 3;
         }
     }
 
     public static void main(String[] args) {
+//        int i = func4(0);
+//        System.out.println(i);
 
-
-        System.out.println(func3());
-
-        foo(0);
-        foo(1);
-        System.out.println(output);
-
-
-        func();
+//
+//        System.out.println(func3());
+//
+//        foo(0);
+//        foo(1);
+//        System.out.println(output);
+//
+//
+//        func();
+        String[] split = "yisiudfia肺部思考".split("");
+        System.out.println(split);
     }
 }
