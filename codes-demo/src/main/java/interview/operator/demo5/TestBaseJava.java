@@ -1,8 +1,13 @@
 package interview.operator.demo5;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Description:
@@ -86,25 +91,25 @@ public class TestBaseJava {
         double dd = 5.3e12;
         System.out.println(dd);
 
-       // float ff = 5.3e12;
+        // float ff = 5.3e12;
         // 包装类型，不是不能直接复制，是"自动装箱的目标必须严格对应它拆箱后的类型"
         // 所以说网上的人水平不一定很高，别人的说的不一定就是对的
         // https://www.nowcoder.com/questionTerminal/904af36af29f491fab5fa335fdb7dcf3
-       // Double oD=3;
-        Double oD=3.0d;
-        Float oDf=3.0f;
+        // Double oD=3;
+        Double oD = 3.0d;
+        Float oDf = 3.0f;
 
         // 数值类型，居然是可以直接赋值给obj的
         Object ojb = 3;
 
         // https://www.nowcoder.com/questionTerminal/f838b38081b942fba7ab2869f71ad071
         // （八进制整型）
-        long test1=012;
+        long test1 = 012;
         // 自动转  -412.0f  单精度 浮点数
-        float f1=-412;
+        float f1 = -412;
         // int other =(int)true;
         // 十六进制整数，自动转 双精度浮点数
-        double d2=0x12345678;
+        double d2 = 0x12345678;
         //byte b=128;
     }
 
@@ -123,7 +128,7 @@ public class TestBaseJava {
     /**
      * 记住标识符只有英文，数字，下划线和$，而且数字不能做开头
      * https://www.nowcoder.com/questionTerminal/e8898ef5492d461d8fa881a93ed2fabb
-     *
+     * <p>
      * 标识符可以由字母、数字、下划线（_）、美元符（$）组成，但不能包含 @、%、空格等其它特殊字符，不能以数字开头
      * 标识符不能是 Java 关键字和保留字
      * 标识符是严格区分大小写的
@@ -131,7 +136,7 @@ public class TestBaseJava {
     @Test
     public void testValName() {
 
-      //  int Tree&Glasses;
+        //  int Tree&Glasses;
         int FirstJavaApplet;
         int First_Applet;
         int $Usdollars;
@@ -140,34 +145,67 @@ public class TestBaseJava {
 
     /**
      * https://www.nowcoder.com/questionTerminal/18f100abfe294eceb6c421d2f6501c1d
-     *
+     * <p>
      * https://www.nowcoder.com/questionTerminal/1daccd2f23c74f1886f0dada4a5c6c78
      */
     @Test
     public void testRange() {
-            // 其实自己都不知道还有这样的语法，匿名类
-            Object o = new Object() {
-                // 使用了匿名内部类，并重写了Object中的重写了equals()方法
-                public boolean equals(Object obj) {
-                    return true;
-                }
-            };
-            System.out.println(o.equals("Fred"));
+        // 其实自己都不知道还有这样的语法，匿名类
+        Object o = new Object() {
+            // 使用了匿名内部类，并重写了Object中的重写了equals()方法
+            public boolean equals(Object obj) {
+                return true;
+            }
+        };
+        System.out.println(o.equals("Fred"));
 
-            new Runnable(){
+        new Runnable() {
 
-                @Override
-                public void run() {
+            @Override
+            public void run() {
 
-                }
-            };
-            // 内部类&匿名类
+            }
+        };
+        // 内部类&匿名类
         // 是2个语法概念
-            // 居然还有这样的语法，匿名类的语法，这样就不用再声明一个XXXClass extends ArrayList，然后重写equals方法
-            new ArrayList<String>() {
-                public String toString() {
-                    return "";
-                }
-            };
+        // 居然还有这样的语法，匿名类的语法，这样就不用再声明一个XXXClass extends ArrayList，然后重写equals方法
+        new ArrayList<String>() {
+            public String toString() {
+                return "";
+            }
+        };
+    }
+
+    @Test
+    public void testDouble() {
+        System.out.println(0.2 + 0.1);
+        System.out.println(0.3 - 0.1);
+        System.out.println(0.2 * 0.1);
+        System.out.println(0.3 / 0.1);
+
+        double v = new BigDecimal("0.2").add(new BigDecimal(0.1)).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+        System.out.println(v);
+        System.out.println(String.format("11231 %.0f %.1f", v, v));
+        System.out.println(String.format("%.0f", 99.9d));
+        Map<String, Object> map = new HashMap<>(10);
+        map.put("1", new BigDecimal("12312.98098923428948"));
+        map.put("2", new BigDecimal("12312.234237482347892489"));
+        map.put("3", new BigDecimal("12312.234236482387"));
+        map.put("package", 1);
+        System.out.println(JSON.toJSONString(map));
+        float v1 = new BigDecimal("0.001").setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
+        System.out.println(v1);
+        System.out.println(System.nanoTime());
+
+
+        JSONObject jsonObject = JSON.parseObject("{\"cancelOrder\":1,\"orderId\":28457,\"delay_second\":172797000}");
+        String from = jsonObject.getString("from");
+        System.out.println(from);
+
+        System.out.println(String.format("%02d", 1));
+
+        System.out.println("13213123".split("_")[0]);
+        System.out.println("13213123_1".split("_")[0]);
+
     }
 }

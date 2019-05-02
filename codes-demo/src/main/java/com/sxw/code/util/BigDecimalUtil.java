@@ -7,6 +7,7 @@ import java.math.BigDecimal;
  * @date 2018年7月30日
  * @description 提供精确的浮点数运算(包括加、减、乘、除、四舍五入)工具类
  */
+@Deprecated
 public class BigDecimalUtil {
 
     // 除法运算默认精度
