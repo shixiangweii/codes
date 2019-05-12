@@ -1,0 +1,23 @@
+整页翻页
+f就是forword b就是backward
+ctrl-f ctrl-b
+
+翻半页
+d=down u=up
+ctrl-d ctlr-u
+
+滚一行
+ctrl-e ctrl-y
+
+zz 让光标所杂的行居屏幕中央
+zt 让光标所杂的行居屏幕最上一行 t=top
+zb 让光标所杂的行居屏幕最下一行 b=bottom
+
+设置行号
+:set nu
+
+文件最后
+G
+
+文件开始处
+gg
