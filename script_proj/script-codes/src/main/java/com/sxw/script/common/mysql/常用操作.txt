@@ -1,0 +1,85 @@
+事务
+SHOW GLOBAL VARIABLES LIKE 'wait_timeout';
+SHOW GLOBAL VARIABLES LIKE 'interactive_timeout';
+
+select * from information_schema.innodb_trx;
+select * from information_schema.innodb_locks;
+select * from information_schema.innodb_lock_waits;
+
+show processlist;
+
+select @@tx_isolation;
+select @@global.tx_isolation;
+
+kill 171970;
+
+
+-- update inner join
+UPDATE tp_sick_doc a
+	INNER JOIN tp_zx_doctor b ON a.doc_openid = b.openid
+SET a.doctor_id = b.id
+
+UPDATE tp_sick_zxinfo zxf, (
+		SELECT z.`id`
+		FROM `wbcms`.`tp_sick_zxinfo` z
+		WHERE z.`zx_status` = 3
+			AND z.`doctor_first_reply_time` > 0
+			AND z.`doctor_first_reply_time` + 48 * 60 * 60 < UNIX_TIMESTAMP(now())
+			AND z.`follow_up` = 1
+	) r
+SET zxf.zx_status = 2
+WHERE zxf.id = r.id
+
+update tp_app_article a inner join
+(
+	select
+		tmp_cmt.article_id,
+		count(*) 'total_sum'
+	from
+		temp_del_comment tmp_cmt
+	group by tmp_cmt.article_id
+) tt
+on a.article_id = tt.article_id
+set a.comment_num = a.comment_num - tt.total_sum
+
+
+-- create table temp_del_comment as select
+create table temp_del_comment as
+select
+	article_id,
+	c2.id as cmt_id
+from tp_app_comment c2
+where c2.`send_user_id` in
+(
+	select
+		c.`send_user_id`
+	from
+		`wbcms`.`tp_app_comment`  c
+	where
+		c.`create_time` > UNIX_TIMESTAMP('2018-11-01 00:00:00')
+		and c.`create_time` < UNIX_TIMESTAMP('2018-11-23 00:00:00')
+		and CHAR_LENGTH(`content`)  < 5
+		and c.`type` !=-1
+		and c.`article_id` in (
+			select t1.`article_id`  from `wbcms`.`tp_app_article` t1 where t1.article_type in (13,15)
+		)
+	group by c.`send_user_id`
+	HAVING count(c.`id`)  > 20
+)
+and c2.`create_time` > UNIX_TIMESTAMP('2018-11-01 00:00:00')
+and c2.`create_time`  < UNIX_TIMESTAMP('2018-11-23 00:00:00')
+and CHAR_LENGTH(c2.content)<5
+and c2.`type` !=-1
+and c2.`article_id` in (
+	select t1.`article_id`  from `wbcms`.`tp_app_article` t1 where t1.article_type in (13,15)
+)
+
+SELECT auto_increment
+FROM information_schema.`TABLES`
+WHERE TABLE_SCHEMA = 'wbcms'
+	AND TABLE_NAME = 'tp_zx_doctor';
+
+
+
+insert into tb(col1,col2...)
+select v1,v2....
