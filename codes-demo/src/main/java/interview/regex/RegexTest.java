@@ -15,6 +15,46 @@ import java.util.regex.Pattern;
  * User: shixiangweii
  * Date: 2018-04-29
  * Time: 17:32
+ * <p>
+ * 常用场景：
+ *
+ * 一、测试字符串内的模式（数据验证）
+ * 1、整个字符串校验（填写表单的时候，手机号，身份证之类，所输入的整个字符串校验）
+ *
+ * 二、替换文本
+ * 三、基于模式匹配从字符串中提取子字符串
+ * <p>
+ * 2、在一个字符串中查找提取（在一个文件中，查找某个固定的字符串，替换，提取IP，提取数字，html提取文本）
+ *
+ *
+ * 不要把什么HTML，中文文档，代码什么特殊化去看，有什么换行，特殊符号，
+ * 就是把他抽象成一个，字符串，换行，逗号，空格，tab，都是一个字符，都有对应的字符代码，
+ * 一个文件里面的内容就是一个超级长的字符串，没什么换行不换行的（统一抽象概念）
+ *
+ * 语法
+ * https://www.runoob.com/regexp/regexp-syntax.html
+ *
+ * 元字符
+ * https://www.runoob.com/regexp/regexp-metachar.html
+ *
+ * + (前面的字符、匹配前面的子表达>=1)  [1,+∞)
+ * * (前面的字符、匹配前面的子表达>=0)  [0,+∞)
+ * ? (前面的字符、匹配前面的子表达=0,1) [0,1]
+ *
+ * 普通字符
+ *   非打印字符
+ *   可打印
+ *
+ * 特殊字符
+ *   特殊含义的字符(匹配这些特殊字符，必须首先使字符"转义")
+ *     限定符
+ *       *,+ 贪婪的，因为它们会尽可能多的匹配文字，只有在它们的后面加上一个?就可以实现非贪婪或最小匹配
+ *
+ *     定位符
+ *
+ * . 匹配除换行符 \n 之外的任何单字符
+ * $ 匹配输入字符串的结尾位置
+ * ^ 匹配输入字符串的开始位置
  */
 public class RegexTest {
     /**
@@ -128,7 +168,7 @@ public class RegexTest {
      * 顺序肯定环视，表示所在位置右侧能够匹配Expression
      * (?!Expression)
      * 顺序否定环视，表示所在位置右侧不能匹配Expression
-     *
+     * <p>
      * https://www.nowcoder.com/questionTerminal/758401c48ddc4deebb955821e175614d
      */
     @Test
@@ -153,7 +193,7 @@ public class RegexTest {
 
     /**
      * https://www.nowcoder.com/questionTerminal/53ea61fdee47423fb63a71d9dd0309f4
-     *
+     * <p>
      * ///////MyClass.class
      */
     @Test

@@ -4,6 +4,7 @@ import com.sxw.code.util.BigDecimalUtils;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  * Description:
@@ -22,5 +23,26 @@ public class BigDecimalUtislTest {
 
         System.out.println(BigDecimalUtils.getInt(new BigDecimal(9.89)));
         System.out.println(new BigDecimal(9.89).intValue());
+    }
+
+    @Test
+    public void test2() {
+        System.out.println(getFormatNumber(0.01f,1));
+        System.out.println(String.format("%.2f", 0.01));
+    }
+
+
+    public static String getFormatNumber(float number, int formatType) {
+        DecimalFormat decimalFormat = null;
+        if (formatType == 0) {
+            decimalFormat = new DecimalFormat("0.##");
+            return decimalFormat.format(number);
+        } else {
+            if (number == 0) {
+                return "0.00";
+            }
+            decimalFormat = new DecimalFormat("0.00");
+            return decimalFormat.format(number);
+        }
     }
 }
