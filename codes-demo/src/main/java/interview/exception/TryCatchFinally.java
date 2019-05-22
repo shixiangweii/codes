@@ -74,11 +74,13 @@ public class TryCatchFinally {
 //        System.out.println(func3());
 //
 //        foo(0);
-//        foo(1);
-//        System.out.println(output);
+        foo(1);
+        System.out.println(output);
 //
 //
 //        func();
+
+
         String[] split = "yisiudfia肺部思考".split("");
         System.out.println(split);
     }

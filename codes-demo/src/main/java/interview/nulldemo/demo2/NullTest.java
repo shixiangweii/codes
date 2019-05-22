@@ -22,7 +22,7 @@ public class NullTest {
     @Test
     public void testNull() {
         // null == null并不会报错
-        System.out.println(null==null);
+        System.out.println(null == null);
         // 吃惊了居然不会报错
         NullTest testNull = null;
 
@@ -39,7 +39,9 @@ public class NullTest {
         System.out.println(((NullTest) null));
         Integer i = null;
         // NPE
-        int a = i;
-
+        // int a = i;
+        Object c = null;
+        Integer d = (Integer) c;
+        System.out.println(d);
     }
 }
