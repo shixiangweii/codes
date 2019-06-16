@@ -1,4 +1,4 @@
-package com.sxw.code.stream;
+package com.sxw.code.stream.reduce;
 
 import java.util.Arrays;
 import java.util.List;

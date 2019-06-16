@@ -29,6 +29,8 @@ public class BigDecimalUtislTest {
     public void test2() {
         System.out.println(getFormatNumber(0.01f,1));
         System.out.println(String.format("%.2f", 0.01));
+
+        System.out.println(new BigDecimal("0.9278479823749823").setScale(5, BigDecimal.ROUND_HALF_UP).toString());
     }
 
 

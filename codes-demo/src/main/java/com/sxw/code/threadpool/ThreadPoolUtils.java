@@ -42,6 +42,13 @@ public class ThreadPoolUtils {
         return getOneFixedThreadPool(threadNamePrefix, 1);
     }
 
+    /**
+     * https://www.jianshu.com/p/f030aa5d7a28
+     *
+     * @param threadNamePrefix
+     * @param num
+     * @return
+     */
     public static ThreadPoolExecutor getOneFixedThreadPool(String threadNamePrefix, int num) {
         return new ThreadPoolExecutor(num, num,
                 0L, TimeUnit.MILLISECONDS,
@@ -49,7 +56,6 @@ public class ThreadPoolUtils {
                 r -> new Thread(r, threadNamePrefix)
         );
     }
-
 
 
 }
