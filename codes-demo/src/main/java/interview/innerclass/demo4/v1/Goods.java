@@ -10,6 +10,8 @@ import interview.innerclass.demo4.inter.Destination;
  * Time: 23:35
  * https://blog.csdn.net/gaoyong_stone/article/details/79556287
  *
+ * https://blog.csdn.net/gaoyong_stone/article/details/79556287
+ *
  * @author shixiangweii
  */
 public class Goods {
