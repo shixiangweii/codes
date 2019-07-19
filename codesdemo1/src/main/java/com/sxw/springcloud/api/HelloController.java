@@ -33,9 +33,9 @@ public class HelloController {
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String index() throws Exception {
         ServiceInstance instance = client.getLocalServiceInstance();
-        int sleepTime = new Random().nextInt(1001);
-        logger.info("sleepTime: {}", sleepTime);
-        Thread.sleep(sleepTime);
+        // int sleepTime = new Random().nextInt(1000) + 2000;
+        // logger.info("sleepTime: {}", sleepTime);
+        // Thread.sleep(sleepTime);
         logger.info("/hello, host:" + instance.getHost() + ", service_id:" + instance.getServiceId());
         return "Hello World";
     }
