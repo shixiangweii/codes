@@ -3,7 +3,9 @@
 ### Example user template
 
 # IntelliJ project files
+.idea/workspace.xml
 .idea
+
 *.iml
 out
 gen
