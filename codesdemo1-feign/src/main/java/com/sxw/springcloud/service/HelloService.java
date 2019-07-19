@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.*;
  * @author shixi
  * 服务名不区分大小写，HELLO-SERVICE，这种大写也是可以的
  * 其实有点类似dubbo，消费者依赖api模块，直接注入接口
- *
+ * <p>
  * Feign中参数必须通过value属性指明具体的参数名，否则会异常
  */
-@FeignClient("hello-service")
+@FeignClient(name = "HELLO-SERVICE", fallback = HelloServiceFallback.class)
 public interface HelloService {
+
     @RequestMapping("/hello")
     String hello();
 
