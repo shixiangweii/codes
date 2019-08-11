@@ -1,7 +1,9 @@
 package com.sxw;
 
+import com.sxw.design.singleton.HttpsManager;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -18,5 +20,8 @@ public class SystemTest {
         System.out.println(x);
         int i = new Random(x).nextInt(10000) + 10000;
         System.out.println(x + "" + i);
+
+        HttpsManager.getInstance().post("", Collections.emptyMap());
+        HttpsManager.getInstance().close();
     }
 }
