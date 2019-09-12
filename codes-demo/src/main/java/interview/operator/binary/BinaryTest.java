@@ -2,6 +2,8 @@ package interview.operator.binary;
 
 import org.junit.Test;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Description:
  * User: shixiangweii
@@ -39,5 +41,49 @@ public class BinaryTest {
         double d1 = -0.5;
         System.out.println("Ceil d1=" + Math.ceil(d1));
         System.out.println("floor d1=" + Math.floor(d1));
+
+
+        a = 0XB000000000000000L;
+        System.out.println(a);
+        System.out.println(a << 1);
+        // 丢弃符号位
+        System.out.println(0X6000000000000000L);
+    }
+
+    private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
+    private static final int COUNT_BITS = Integer.SIZE - 3;
+    private static final int CAPACITY = (1 << COUNT_BITS) - 1;
+
+    // runState is stored in the high-order bits
+    private static final int RUNNING = -1 << COUNT_BITS;
+    private static final int SHUTDOWN = 0 << COUNT_BITS;
+    private static final int STOP = 1 << COUNT_BITS;
+    private static final int TIDYING = 2 << COUNT_BITS;
+    private static final int TERMINATED = 3 << COUNT_BITS;
+
+    // Packing and unpacking ctl
+    private static int runStateOf(int c) {
+        return c & ~CAPACITY;
+    }
+
+    private static int workerCountOf(int c) {
+        return c & CAPACITY;
+    }
+
+    private static int ctlOf(int rs, int wc) {
+        return rs | wc;
+    }
+
+    @Test
+    public void test() {
+        System.out.println(COUNT_BITS);
+
+        System.out.println(CAPACITY);
+
+        System.out.println(RUNNING);
+        System.out.println(SHUTDOWN);
+        System.out.println(STOP);
+        System.out.println(TIDYING);
+        System.out.println(TERMINATED);
     }
 }
