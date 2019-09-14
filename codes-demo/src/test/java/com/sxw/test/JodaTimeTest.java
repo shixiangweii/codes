@@ -17,6 +17,18 @@ import java.util.Date;
  * @author shixiangweii
  */
 public class JodaTimeTest {
+
+    /**
+     * 没有设置时区导致异常
+     * https://blog.csdn.net/u010954806/article/details/79064130
+     */
+    @Test
+    public void testJodaTimeError() {
+        DateTimeFormat.forPattern("yyyy-MM-dd").parseDateTime("1990-04-15").toDate();
+        new DateTime("1990-04-15");
+    }
+
+
     @Test
     public void testJodaTime() {
         Date date = DateTimeFormat.forPattern("yyyy-MM-dd").parseLocalDate("1994-12-26").toDate();
@@ -59,8 +71,8 @@ public class JodaTimeTest {
             dateTime = dateTime.plusDays(1);
             String text = dateTime.toString("yyyy-MM-dd");
             System.out.println(text);
-            DateTimeFormat.forPattern("yyyy-MM-dd").parseDateTime(text).toDate();
-            //DateTimeFormat.forPattern("yyyy-MM-dd").parseLocalDateTime(text).toDate();
+            // DateTimeFormat.forPattern("yyyy-MM-dd").parseDateTime(text).toDate();
+            DateTimeFormat.forPattern("yyyy-MM-dd").parseLocalDateTime(text).toDate();
         }
     }
 
