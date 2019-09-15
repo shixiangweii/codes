@@ -24,6 +24,7 @@ public class JodaTimeTest {
      */
     @Test
     public void testJodaTimeError() {
+        // 2.10.3修正了bug
         DateTimeFormat.forPattern("yyyy-MM-dd").parseDateTime("1990-04-15").toDate();
         new DateTime("1990-04-15");
     }
