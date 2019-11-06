@@ -5,50 +5,50 @@ import java.math.BigDecimal;
 /**
  * Description:
  * User: shixiangweii
- * Date: 2019-05-02
- * Time: 13:14
+ * Date: 2019-04-20
+ * Time: 16:56
  *
  * @author shixiangweii
  */
 public class BigDecimalUtils {
     /**
-     * 默认2位小数
+     * 四舍五入返回整数
+     *
+     * @param v value
+     * @return int值
      */
-    private static final int DEFAULT_SCALE = 2;
+    public static int getInt(BigDecimal v) {
+        return get(v, 0).intValue();
+    }
+
     /**
-     * 默认四舍五入
+     * 保留2位小数
+     *
+     * @param v value
+     * @return 小数值
      */
-    private static final int DEFAULT_ROUND_MODE = BigDecimal.ROUND_HALF_UP;
-
-    public static BigDecimal valueOf(int num) {
-        return new BigDecimal(num);
+    public static double getDouble(BigDecimal v) {
+        return get(v).doubleValue();
     }
 
-    public static BigDecimal valueOf(long num) {
-        return new BigDecimal(num);
+    /**
+     * 默认设置2位小数精度
+     *
+     * @param v value
+     * @return 2位精度数据
+     */
+    public static BigDecimal get(BigDecimal v) {
+        return get(v, 2);
     }
 
-    public static BigDecimal valueOf(float num) {
-        return new BigDecimal("" + num);
-    }
-
-    public static BigDecimal valueOf(double num) {
-        return new BigDecimal("" + num);
-    }
-
-    public static double getDouble(BigDecimal num) {
-        return num.setScale(DEFAULT_SCALE, DEFAULT_ROUND_MODE).doubleValue();
-    }
-
-    public static float getFloat(BigDecimal num) {
-        return num.setScale(DEFAULT_SCALE, DEFAULT_ROUND_MODE).floatValue();
-    }
-
-    public static int getInt(BigDecimal num) {
-        return num.setScale(0, DEFAULT_ROUND_MODE).intValue();
-    }
-
-    public static BigDecimal divide(BigDecimal a, BigDecimal b) {
-        return a.divide(b, DEFAULT_SCALE, DEFAULT_ROUND_MODE);
+    /**
+     * 设置精度
+     *
+     * @param v     值
+     * @param scale 精度位数
+     * @return 设置精度后的值
+     */
+    public static BigDecimal get(BigDecimal v, int scale) {
+        return v.setScale(scale, BigDecimal.ROUND_HALF_UP);
     }
 }
