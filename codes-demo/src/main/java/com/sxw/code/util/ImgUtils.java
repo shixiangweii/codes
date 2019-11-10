@@ -1,6 +1,6 @@
 package com.sxw.code.util;
 
-import com.wbyjk.bdy.service.base.AppConfig;
+
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -62,7 +62,7 @@ public class ImgUtils {
      * 支持图片裁剪的OSS图片域名
      */
     public static String concatImgWholeUrlByCutableDomainDocInfo(String fileName) {
-        AppConfig bean = SpringUtils.getBean(AppConfig.class);
+
 
         if (StringUtils.isNoneBlank(fileName) && fileName.startsWith(YYB_IMG_BUCKET)) {
             return IMG_CUTABLE_DOMAIN + fileName;
