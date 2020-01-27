@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
+ * 泛型中占位符T和?有什么区别？
  * https://blog.csdn.net/woshizisezise/article/details/79374460
  * <p>
  * 解析json
