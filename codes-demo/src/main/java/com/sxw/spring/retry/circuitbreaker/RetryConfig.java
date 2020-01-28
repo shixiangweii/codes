@@ -1,4 +1,4 @@
-package com.sxw.spring.retry.demo1;
+package com.sxw.spring.retry.circuitbreaker;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
