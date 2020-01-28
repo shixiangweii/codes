@@ -5,6 +5,12 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
+/**
+ * https://www.jianshu.com/p/5537b2c86acd
+ *
+ *
+ * @author shixi
+ */
 public class ObjDemo {
 
     public static void main(String[] args) {
