@@ -70,7 +70,7 @@ public class MeetingDemo1 {
         // 计算分表
         // 论证不清楚使用的分片算法，是否是均匀的
         // 拼接分表
-        String sql = "select * from member_" + String.format("%02d", tbIdx % 2) + " where user_id = " + userId;
+        String sql = "select * from member_" + String.format("%02d", tbIdx) + " where user_id = " + userId;
         Connection conn = dataSource.getConnection();
         PreparedStatement psst = conn.prepareStatement(sql);
         ResultSet rs = psst.executeQuery();
@@ -130,7 +130,7 @@ public class MeetingDemo1 {
             d.setPassword("rootsxw");
             // 计算分表
             // 论证不清楚使用的分片算法，是否是均匀的
-            String sql = "select * from member_" + String.format("%02d", tbIdx % 2) + " where user_id = " + userId + " and meeting_id = " + meetingId;
+            String sql = "select * from member_" + String.format("%02d", tbIdx) + " where user_id = " + userId + " and meeting_id = " + meetingId;
             Connection c = d.getConnection();
             PreparedStatement p = c.prepareStatement(sql);
             ResultSet r = p.executeQuery();
