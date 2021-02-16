@@ -103,6 +103,7 @@ public class ConfigInstanceExp {
     @Test
     public void testConfigInstanceValuesQLExpression() throws Exception {
         long s = System.currentTimeMillis();
+        // 用QLExpression一样可以做，关注要解决的问题本身，具体的技术选择，会用就行
         // clientDeviceType = iOS
         ExpressRunner runner = new ExpressRunner();
 
