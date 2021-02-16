@@ -1,5 +1,7 @@
 package com.sxw.spring.spel.ongl;
 
+import com.ql.util.express.DefaultContext;
+import com.ql.util.express.ExpressRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.expression.EvaluationContext;
@@ -51,18 +53,16 @@ public class ConfigInstanceExp {
 
     @Test
     public void testConfigInstanceValues() throws NoSuchMethodException {
-        // clientDeviceType = iOS
         long s = System.currentTimeMillis();
+        // clientDeviceType = iOS
         ExpressionParser parser = new SpelExpressionParser();
         EvaluationContext context = new StandardEvaluationContext();
         context.setVariable("clientDeviceType", "iOS");
         System.out.println(parser.parseExpression("#clientDeviceType=='win'").getValue(context, String.class));
-        System.out.println((System.currentTimeMillis() - s));
         System.out.println(parser.parseExpression("#clientDeviceType=='iOS'").getValue(context, String.class));
 
         // tenantId = 92
         context.setVariable("tenantId", 92);
-        System.out.println(parser.parseExpression("#tenantId==100").getValue(context, String.class));
         System.out.println(parser.parseExpression("#tenantId==92").getValue(context, String.class));
 
         // tenantId = 92 && clientDeviceType = iOS
@@ -83,6 +83,61 @@ public class ConfigInstanceExp {
 
         // appVersion >= 2.0.0.1
         System.out.println(parser.parseExpression("#compareAppVersion(#appVersion, '2.0.0.1')").getValue(context, String.class));
+        System.out.println((System.currentTimeMillis() - s));
+    }
+
+
+    @Test
+    public void testQlDemo() throws Exception {
+        ExpressRunner runner = new ExpressRunner();
+        DefaultContext<String, Object> context = new DefaultContext<String, Object>();
+        context.put("a", 1);
+        context.put("b", 2);
+        context.put("c", 3);
+        String express = "a+b*c";
+        Object r = runner.execute(express, context, null, true, false);
+        System.out.println(r);
+    }
+
+
+    @Test
+    public void testConfigInstanceValuesQLExpression() throws Exception {
+        long s = System.currentTimeMillis();
+        // clientDeviceType = iOS
+        ExpressRunner runner = new ExpressRunner();
+
+        DefaultContext<String, Object> context = new DefaultContext<String, Object>();
+
+        context.put("clientDeviceType", "iOS");
+
+
+        System.out.println(runner.execute("clientDeviceType=='win'", context, null, true, false));
+        System.out.println(runner.execute("clientDeviceType=='iOS'", context, null, true, false));
+
+
+        // tenantId = 92
+        context.put("tenantId", 92);
+        System.out.println(runner.execute("tenantId==92", context, null, true, false));
+
+        // tenantId = 92 && clientDeviceType = iOS
+        System.out.println(runner.execute("tenantId==92 && clientDeviceType=='iOS'", context, null, true, false));
+
+        // accountId in [92883, 200800]
+        List<Integer> whiteList = Arrays.asList(92883, 200800, 1);
+        context.put("whiteList", whiteList);
+        context.put("accountId", 92883);
+        System.out.println(runner.execute("whiteList.contains(accountId)", context, null, true, false));
+
+
+        // appVersion = 1.9.0
+        context.put("appVersion", "1.9.0");
+
+        runner.addFunctionOfClassMethod("compareAppVersion", ConfigInstanceExp.class.getName(), "compareAppVersion", new String[]{"String", "String"}, null);
+
+        System.out.println(runner.execute("compareAppVersion(appVersion, '1.9.0')", context, null, false, false));
+
+        // appVersion >= 2.0.0.1
+        System.out.println(runner.execute("compareAppVersion(appVersion, '2.0.0.1')", context, null, false, false));
         System.out.println((System.currentTimeMillis() - s));
     }
 
