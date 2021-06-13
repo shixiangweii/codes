@@ -3,7 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sxw</groupId>
     <artifactId>codes-demo</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>webclient</module>
+    </modules>
     <name>demos</name>
 
     <properties>
@@ -326,6 +330,14 @@
             <artifactId>QLExpress</artifactId>
             <version>3.2.4</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+
 
 
     </dependencies>
