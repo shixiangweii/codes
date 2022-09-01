@@ -15,7 +15,7 @@
         <junit.version>4.12</junit.version>
         <jedis.version>2.9.0</jedis.version>
         <httpclient.version>4.5.3</httpclient.version>
-        <jsoup.version>1.11.2</jsoup.version>
+        <jsoup.version>1.15.3</jsoup.version>
         <log4j2.version>2.6.2</log4j2.version>
         <sl4j.version>1.7.21</sl4j.version>
         <jcl-over-sl4j.version>1.7.25</jcl-over-sl4j.version>
